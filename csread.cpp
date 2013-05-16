@@ -30,7 +30,6 @@ CsRead::CsRead(char size, char * read, int * qual){
     bases[i] = read[i];
     quals[i] = qual[i];
   }
-
 }
 
 void CsRead::print(ostream & output ){
