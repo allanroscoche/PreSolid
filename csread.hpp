@@ -2,7 +2,7 @@
 #define CSREAD
 #include "globals.h"
 #include <iostream>
-
+#include <string>
 
 using std::istream;
 using std::ostream;
@@ -12,9 +12,13 @@ class CsRead {
   friend istream &operator>>( istream &, CsRead &);
 
 public:
-  CsRead(READ_SIZE size);
+  CsRead();
+  CsRead(char size);
   CsRead(char size, char * read);
   CsRead(char size, char * read, int * quals);  
+
+  CsRead add(int size, std::string read);
+  void print(ostream &);
 
 private:
   char * bases;

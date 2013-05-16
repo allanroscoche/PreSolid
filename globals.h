@@ -1,6 +1,6 @@
 #ifndef GLOBAL
 #define GLOBAL
 
-#define READ_SIZE char
+//#define READ_SIZE char
 
 #endif

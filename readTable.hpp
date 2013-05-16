@@ -6,15 +6,20 @@
 using namespace std;
 
 class readTable {
+  friend ostream &operator<<( ostream &, const readTable &);
 
 public:
   readTable(char * filename);
-
+  ~readTable();
+  void  loadReads();
+  long numberReads();
 
 private:
-  char ** read;
+  CsRead * read;
   int ** qual;
-  ifstream arquivo;
+  long size;
+  fstream arquivo;
   
+  long countFileSize();
 };
 

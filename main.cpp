@@ -7,13 +7,15 @@ using std::endl;
 
 int main(){
   
-  cout << "Reading file..." << endl;
+  cout << "Opening file..." << endl;
   readTable reads("data/example.csfasta");
-  cout << "Read complete.." << endl;
+  cout << reads.numberReads() << " reads" << endl;
+  reads.loadReads();
+  cout << "loading complete" << endl;
 
-  CsRead read(5,(char *)"ACGTT");
+  //CsRead read(5,(char *)"ACGTT");
 
-  cout << read << endl;
+  cout << reads << endl;
   
   return 0;
 }
