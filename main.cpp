@@ -11,12 +11,9 @@ int main(){
   readTable reads("data/example.csfasta");
   cout << "Read complete.." << endl;
 
-  
-  cout << "Read complete.." << endl;
   CsRead read(5,(char *)"ACGTT");
 
   cout << read << endl;
-
   
   return 0;
 }
