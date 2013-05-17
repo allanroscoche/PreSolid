@@ -51,6 +51,10 @@ CsRead CsRead::add(int size, std::string read){
 
   return *this;
 }
+CsRead CsRead::addQual(int size, int quals[]){
+
+
+}
 
 
 ostream &operator<<( ostream & output, const CsRead &read) {
