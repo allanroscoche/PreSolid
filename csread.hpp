@@ -20,12 +20,15 @@ public:
   CsRead add(int size, std::string read);
   CsRead addQual(int size, int quals[]);
   int qual(int);
+  void setBad();
+  bool isGood();
   void print(ostream &);
 
 private:
   char * bases;
   int * quals;
   char size;
+  bool bad;
 
 };
 #endif

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "readTable.hpp"
 #include "csread.hpp"
 
@@ -15,7 +16,11 @@ int main(){
   cout << endl << "loading complete" << endl << "loadind quals: ";
   reads.loadQuals("data/example.qual");
   cout << endl << "loading quals complete" << endl;
-  reads.markBadReads();
+  reads.markBadReads(10);
+
+
+  reads.writeGoodReads("data/example.out");
+
   //cout << reads << endl;
   //CsRead read(5,(char *)"ACGTT");
   //int quals[5] = { 10, 20, 30, 40, 50};

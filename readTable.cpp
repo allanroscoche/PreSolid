@@ -54,23 +54,22 @@ void readTable::loadQuals(char * nome){
 
 }
 
-long readTable::markBadReads(){
-  long i,j, bads;
+long readTable::markBadReads(int min_qual){
+  long i,j;
 
   
-  bads=0;
+  bad_reads=0;
   for(i=0;i<size;i++){
     for(j=0;j<READ_TAM;j++){
-      if(read[i].qual(j) < 10){
-	bads++;
+      if(read[i].qual(j) < min_qual){
+	bad_reads++;
+	read[i].setBad();
 	break;
       }
-	//else
-	//badread[i] = false;
      }
   }
-  
-  cout << "bads: " << bads << endl;
+ 
+  cout << "bads: " << bad_reads << endl;
 }
 
 void readTable::loadReads(){
@@ -98,10 +97,27 @@ void readTable::loadReads(){
 
 }
 
+void readTable::writeGoodReads(char * name){
+  
+  long i;
+  fstream outfile;
+  outfile.open(name,ios::out);
+  
+  for(i=0;i<size;i++){
+    if(read[i].isGood()){
+      outfile << ">" << i << endl;
+      read[i].print(outfile);
+    }
+  }
+  outfile.close();
+
+}
+
 ostream &operator<<( ostream & output, const readTable &read) {
   
   int i;
   for(i=0;i<read.size;i++){
+    output << ">" << i << endl;
     read.read[i].print(output);
   }
   return output;
