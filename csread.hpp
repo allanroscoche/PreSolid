@@ -19,7 +19,7 @@ public:
 
   CsRead add(int size, std::string read);
   CsRead addQual(int size, int quals[]);
-  int Qual(int);
+  int qual(int);
   void print(ostream &);
 
 private:

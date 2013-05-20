@@ -14,12 +14,10 @@ public:
   void loadQuals(char * filename);
   void loadReads();
   long numberReads();
-  void markBadReads();
+  long markBadReads();
 
 private:
   CsRead * read;
-  int ** qual;
-  bool * badread;
   long size;
   fstream arquivo;
   

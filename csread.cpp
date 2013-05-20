@@ -32,6 +32,11 @@ CsRead::CsRead(char size, char * read, int * qual){
   }
 }
 
+int CsRead::qual(int i){
+  return quals[i];
+}
+
+
 void CsRead::print(ostream & output ){
   int i;
   
@@ -52,20 +57,17 @@ CsRead CsRead::add(int size, std::string read){
   return *this;
 }
 
-int CsRead::Qual(int i){
-  return quals[i];
-}
 
 CsRead CsRead::addQual(int n_size, int n_quals[]){
   
-  quals = new int[size];
+  quals = new int[n_size];
   if(size != n_size)
     cout << "Erro\n";
 
   int i;
-  for(i=0;i<size;i++)
+  for(i=0;i<size;i++){
     quals[i] = n_quals[i];
-
+  }
   return *this;
 }
 

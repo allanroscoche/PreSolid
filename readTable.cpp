@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-#define READ_TAM 50
+#define READ_TAM 30
 using namespace std;
 
 readTable::readTable(char * nome){
@@ -31,18 +31,22 @@ void readTable::loadQuals(char * nome){
   fstream qual_file;
   qual_file.open(nome);
 
-  cout << nome << endl;
-
   if(qual_file.is_open()){
-    cout << "lendo arquivo" << endl;
     for(i=0;i<size;i++){
-      getline(qual_file, linha);
-      if(linha[0] == '>'){
-	for(j=0;j<READ_TAM;j++){
-	  qual_file >> quals[j];
-	}
-	read[i].addQual(READ_TAM,quals);
+      /*
+      if((i % (size/10)) == 0 ){
+	cout << ".";
+	cout.flush();
+	}*/
+           
+      getline(qual_file,linha);
+      while(linha[0] != '>')
+	getline(qual_file,linha);
+
+      for(j=0;j<READ_TAM;j++){
+	qual_file >> quals[j];
       }
+      read[i].addQual(READ_TAM,quals);
     }
   }
   else
@@ -50,17 +54,22 @@ void readTable::loadQuals(char * nome){
 
 }
 
-void readTable::markBadReads(){
+long readTable::markBadReads(){
   long i,j, bads;
+
+  
   bads=0;
   for(i=0;i<size;i++){
     for(j=0;j<READ_TAM;j++){
-      if(read[i].Qual(j) < 10){
-	badread[i] = true;
+      if(read[i].qual(j) < 0){
 	bads++;
+	break;
       }
-    }
+	//else
+	//badread[i] = false;
+     }
   }
+  
   cout << "bads: " << bads << endl;
 }
 
@@ -75,11 +84,16 @@ void readTable::loadReads(){
   arquivo.seekg(0, ios::beg);
 
   for(i=0;i<size;i++){
-    getline(arquivo, linha);
-    if(linha[0] == '>'){
+    /*if((i % (size/10)) == 0 ){
+      cout << ".";
+      cout.flush();
+      }*/
+    do{
       getline(arquivo, linha);
-      read[i].add(READ_TAM,linha);
-    }
+    }while(linha[0] != '>');
+    
+    getline(arquivo, linha);
+    read[i].add(READ_TAM,linha);
   }
 
 }
