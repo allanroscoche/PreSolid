@@ -12,12 +12,14 @@ public:
   readTable(char * filename);
   ~readTable();
   void loadQuals(char * filename);
-  void  loadReads();
+  void loadReads();
   long numberReads();
+  void markBadReads();
 
 private:
   CsRead * read;
   int ** qual;
+  bool * badread;
   long size;
   fstream arquivo;
   

@@ -51,9 +51,19 @@ CsRead CsRead::add(int size, std::string read){
 
   return *this;
 }
-CsRead CsRead::addQual(int size, int quals[]){
 
+int CsRead::Qual(int i){
+  return quals[i];
+}
 
+CsRead CsRead::addQual(int size, int n_quals[]){
+  
+  quals = new int[size];
+  int i;
+  for(i=0;i<size;i++)
+    quals[i] = n_quals[i];
+
+  return *this;
 }
 
 

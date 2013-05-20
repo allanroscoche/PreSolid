@@ -49,6 +49,20 @@ void readTable::loadQuals(char * nome){
 
 }
 
+void readTable::markBadReads(){
+  long i,j, bads;
+  bads=0;
+  for(i=0;i<size;i++){
+    for(j=0;j<30;j++){
+      if(read[i].Qual(j) < 10){
+	badread[i] = true;
+	bads++;
+      }
+    }
+  }
+  cout << "bads: " << bads << endl;
+}
+
 void readTable::loadReads(){
   long i;
   string linha;
