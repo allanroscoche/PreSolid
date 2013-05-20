@@ -33,11 +33,11 @@ void readTable::loadQuals(char * nome){
 
   if(qual_file.is_open()){
     for(i=0;i<size;i++){
-      /*
+      
       if((i % (size/10)) == 0 ){
 	cout << ".";
 	cout.flush();
-	}*/
+	}
            
       getline(qual_file,linha);
       while(linha[0] != '>')
@@ -61,7 +61,7 @@ long readTable::markBadReads(){
   bads=0;
   for(i=0;i<size;i++){
     for(j=0;j<READ_TAM;j++){
-      if(read[i].qual(j) < 0){
+      if(read[i].qual(j) < 10){
 	bads++;
 	break;
       }
@@ -84,10 +84,10 @@ void readTable::loadReads(){
   arquivo.seekg(0, ios::beg);
 
   for(i=0;i<size;i++){
-    /*if((i % (size/10)) == 0 ){
+    if((i % (size/10)) == 0 ){
       cout << ".";
       cout.flush();
-      }*/
+      }
     do{
       getline(arquivo, linha);
     }while(linha[0] != '>');
