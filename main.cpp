@@ -14,9 +14,9 @@ int main(){
   cout << "loading complete" << endl << "loadind quals..." << endl;
   reads.loadQuals("data/example.qual");
 
-  CsRead read(5,(char *)"ACGTT");
-  int quals[5] = { 10, 20, 30, 40, 50};
-  read.addQual(5,quals);
+  //CsRead read(5,(char *)"ACGTT");
+  //int quals[5] = { 10, 20, 30, 40, 50};
+  //read.addQual(5,quals);
 
   //cout << reads << endl;
   

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 
+#define READ_TAM 50
 using namespace std;
 
 readTable::readTable(char * nome){
@@ -26,21 +27,21 @@ void readTable::loadQuals(char * nome){
   long i,j;
   string linha;
 
-  int quals[30];
+  int quals[READ_TAM];
   fstream qual_file;
   qual_file.open(nome);
 
   cout << nome << endl;
 
   if(qual_file.is_open()){
-  
+    cout << "lendo arquivo" << endl;
     for(i=0;i<size;i++){
       getline(qual_file, linha);
       if(linha[0] == '>'){
-	for(j=0;j<30;j++){
-	  qual_file >> quals[i];
+	for(j=0;j<READ_TAM;j++){
+	  qual_file >> quals[j];
 	}
-	read[i].addQual(30,quals);
+	read[i].addQual(READ_TAM,quals);
       }
     }
   }
@@ -53,7 +54,7 @@ void readTable::markBadReads(){
   long i,j, bads;
   bads=0;
   for(i=0;i<size;i++){
-    for(j=0;j<30;j++){
+    for(j=0;j<READ_TAM;j++){
       if(read[i].Qual(j) < 10){
 	badread[i] = true;
 	bads++;
@@ -77,7 +78,7 @@ void readTable::loadReads(){
     getline(arquivo, linha);
     if(linha[0] == '>'){
       getline(arquivo, linha);
-      read[i].add(30,linha);
+      read[i].add(READ_TAM,linha);
     }
   }
 
