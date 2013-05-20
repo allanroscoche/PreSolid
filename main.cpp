@@ -11,11 +11,14 @@ int main(){
   readTable reads("data/example.csfasta");
   cout << reads.numberReads() << " reads" << endl;
   reads.loadReads();
-  cout << "loading complete" << endl;
+  cout << "loading complete" << endl << "loadind quals..." << endl;
+  reads.loadQuals("data/example.qual");
 
-  //CsRead read(5,(char *)"ACGTT");
+  CsRead read(5,(char *)"ACGTT");
+  int quals[5] = { 10, 20, 30, 40, 50};
+  read.addQual(5,quals);
 
-  cout << reads << endl;
+  //cout << reads << endl;
   
   return 0;
 }

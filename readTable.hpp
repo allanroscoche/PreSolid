@@ -11,6 +11,7 @@ class readTable {
 public:
   readTable(char * filename);
   ~readTable();
+  void loadQuals(char * filename);
   void  loadReads();
   long numberReads();
 

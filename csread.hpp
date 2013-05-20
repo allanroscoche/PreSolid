@@ -18,6 +18,8 @@ public:
   CsRead(char size, char * read, int * quals);  
 
   CsRead add(int size, std::string read);
+  CsRead addQual(int size, int quals[]);
+
   void print(ostream &);
 
 private:

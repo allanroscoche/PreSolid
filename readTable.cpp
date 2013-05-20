@@ -22,13 +22,39 @@ long readTable::numberReads(){
   return size;
 }
 
+void readTable::loadQuals(char * nome){
+  long i,j;
+  string linha;
+
+  int quals[30];
+  fstream qual_file;
+  qual_file.open(nome);
+
+  cout << nome << endl;
+
+  if(qual_file.is_open()){
+  
+    for(i=0;i<size;i++){
+      getline(qual_file, linha);
+      if(linha[0] == '>'){
+	for(j=0;j<30;j++){
+	  qual_file >> quals[i];
+	}
+	read[i].addQual(30,quals);
+      }
+    }
+  }
+  else
+    cout << "arquivo não encontrado" << endl;
+
+}
+
 void readTable::loadReads(){
   long i;
   string linha;
 
 
   this->read = new CsRead[size];
-
 
   arquivo.clear();
   arquivo.seekg(0, ios::beg);
