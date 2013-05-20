@@ -56,9 +56,12 @@ int CsRead::Qual(int i){
   return quals[i];
 }
 
-CsRead CsRead::addQual(int size, int n_quals[]){
+CsRead CsRead::addQual(int n_size, int n_quals[]){
   
   quals = new int[size];
+  if(size != n_size)
+    cout << "Erro\n";
+
   int i;
   for(i=0;i<size;i++)
     quals[i] = n_quals[i];
