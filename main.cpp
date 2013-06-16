@@ -16,8 +16,7 @@ int main(){
   cout << endl << "loading complete" << endl << "loadind quals: ";
   reads.loadQuals("data/example.qual");
   cout << endl << "loading quals complete" << endl;
-  reads.markBadReads(10);
-
+  reads.markBadReads(1);
 
   reads.writeGoodReads("data/example.out");
 
