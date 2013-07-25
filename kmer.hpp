@@ -7,9 +7,19 @@
 using std::istream;
 using std::ostream;
 
-class kmer {
+class Kmer {
+
+public:
+  Kmer();
+  Kmer * insert(unsigned int id, unsigned char pos);
+
 private:
-  int data;
+  // data
+  unsigned int read_id;
+  unsigned char kmer_pos;
+
+  // structure
+  Kmer * next;
 };
 
 #endif
