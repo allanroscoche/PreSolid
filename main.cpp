@@ -3,6 +3,7 @@
 #include <unordered_set>
 #include "readTable.hpp"
 #include "csread.hpp"
+#include "kmer.hpp"
 
 using std::cout;
 using std::endl;
@@ -22,13 +23,13 @@ int main(){
   reads.writeGoodReads("data/example.out");
 
 
-  std::unordered_set<std::string> myset = {"Allan", "Tais", "Melão"};
+  std::unordered_set<Kmer> myset;
 
   cout << "myset contains:";
   for( auto it = myset.cbegin(); it != myset.cend(); it++)
     std::cout << " " << *it;
   std::cout << std::endl;
-  
+
   std::cout << "myset's buckets contains:\n";
   for( unsigned i = 0; i < myset.bucket_count(); ++i) {
     cout << "bucket #" << i << " contains:";
@@ -36,7 +37,7 @@ int main(){
       cout << " " << *local_it;
     cout << endl;
   }
-  
+
   //cout << reads << endl;
   //CsRead read(5,(char *)"ACGTT");
   //int quals[5] = { 10, 20, 30, 40, 50};
