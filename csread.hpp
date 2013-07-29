@@ -22,7 +22,9 @@ public:
   int qual(int);
   void setBad();
   bool isGood();
+  char * subs(unsigned char pos, unsigned char size);
   void print(ostream &);
+  int getSize();
 
 private:
   char * bases;

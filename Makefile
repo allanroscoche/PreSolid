@@ -1,8 +1,8 @@
 presolid: main.cpp readTable.o csread.o kmer.o kmerTable.o
-	g++ -std=c++0x -o presolid main.cpp readTable.o csread.o
+	g++ -std=c++0x -o presolid main.cpp readTable.o csread.o kmer.o kmerTable.o
 
 readTable.o : readTable.cpp readTable.hpp globals.h
-	g++ readTable.cpp -c -o readTable.o
+	g++ -std=c++0x readTable.cpp -c -o readTable.o
 
 csread.o : csread.cpp csread.hpp globals.h
 	g++ csread.cpp -c -o csread.o

@@ -2,6 +2,7 @@
 #include "globals.h"
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 
 using std::cout;
 using std::endl;
@@ -80,7 +81,24 @@ CsRead CsRead::addQual(int n_size, int n_quals[]){
   }
   return *this;
 }
+char * CsRead::subs(unsigned char pos, unsigned char sub_size){
+  char * subs = (char *) malloc (sizeof(char) * size);
 
+  int i,j=0;
+  int end = pos + sub_size;
+  if( end > size){
+    subs[0] = 0;
+    return subs;
+  }
+  for(i=pos;i<end;i++)
+    subs[j++] = bases[i];
+  subs[j] = 0;
+  return subs;
+}
+
+int CsRead::getSize(){
+  return size;
+}
 
 ostream &operator<<( ostream & output, const CsRead &read) {
 

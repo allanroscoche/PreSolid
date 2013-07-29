@@ -1,4 +1,5 @@
 #include "csread.hpp"
+#include "kmerTable.hpp"
 #include "globals.h"
 #include <fstream>
 #include <iostream>
@@ -16,6 +17,8 @@ public:
   long numberReads();
   long markBadReads(int);
   void writeGoodReads(char *);
+  KmerTable * generateKmerTable(unsigned int kmer_size);
+  CsRead *  getRead(unsigned int read);
 
 private:
   CsRead * read;

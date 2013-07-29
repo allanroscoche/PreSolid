@@ -139,3 +139,19 @@ long readTable::countFileSize(){
     cout << "Arquivo não pode ser aberto" << endl;
   }
 }
+KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
+
+  KmerTable * novo = new KmerTable(kmer_size);
+  unsigned int i;
+
+  for(i=0;i<size;i++)
+    novo->insert(&read[i]);
+
+  return novo;
+
+}
+
+CsRead * readTable::getRead(unsigned int read_id){
+  CsRead * copy = new CsRead(read[read_id]);
+  return copy;
+}

@@ -17,8 +17,15 @@ Kmer *  KmerStack:: push(unsigned int id, unsigned char pos){
   }
 
 }
+
 Kmer * KmerStack::pop(){
   Kmer * temp = this->head;
   this->head = this->head->next;
   return temp;
+}
+
+void KmerStack::erase(){
+
+  
+  
 }

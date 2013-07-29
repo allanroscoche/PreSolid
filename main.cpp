@@ -22,7 +22,15 @@ int main(){
 
   reads.writeGoodReads("data/example.out");
 
+  CsRead * teste = reads.getRead(2);
+  cout << "t: " << *teste << endl;
+  cout << "s: " << teste->subs(20,10) << endl;
 
+  KmerTable * pKmerT;
+  pKmerT = reads.generateKmerTable(21);
+
+  cout << endl;
+  /*
   std::unordered_set<Kmer> myset;
 
   cout << "myset contains:";
@@ -44,6 +52,6 @@ int main(){
   //read.addQual(5,quals);
 
   //cout << reads << endl;
-
+  */
   return 0;
 }
