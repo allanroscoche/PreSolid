@@ -8,11 +8,11 @@ KmerTable::KmerTable(unsigned int k_size){
   std::cout << "k:" << k_size << std::endl;
   kmer_size = k_size;
   unsigned int i=0;
-  
+
   for(i=0;i<(kmer_size/4);i++)
     table_size *= 4;
 
-  
+
   kmer = (KmerStack *) malloc(sizeof(Kmer) * table_size);
   std::cout << "hashtable size: " << table_size << std::endl;
 
@@ -29,15 +29,16 @@ KmerTable::~KmerTable() {
 void KmerTable::insert(CsRead * read){
   unsigned int i;
   unsigned int pieces = read->getSize() - kmer_size;
-  
+
   for(i=0;i<pieces;i++)
     //hash(read->subs(i,kmer_size));
+#pragma GCC diagnostic ignored "-Wwrite-strings"
     hash("CAAAC");
 
 }
 
 unsigned int KmerTable::hash(char *bases){
-  
+
   unsigned int add,i,cod,temp;
   bool div4;
   add  = 0;
@@ -68,7 +69,7 @@ unsigned int KmerTable::hash(char *bases){
     if(div4)
       add |= temp << (2*i);
   }
-  std::cout << add << "\t    ";
-    
+  //std::cout << add << "\t    ";
+
   return add;
 }

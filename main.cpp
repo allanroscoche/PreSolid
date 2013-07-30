@@ -9,7 +9,7 @@ using std::cout;
 using std::endl;
 
 int main(){
-
+#pragma GCC diagnostic ignored "-Wwrite-strings"
   cout << "Counting reads: ";
   readTable reads("data/example.csfasta");
   cout << reads.numberReads() << " reads" << endl;
