@@ -15,7 +15,7 @@ public:
   CsRead();
   CsRead(char size);
   CsRead(char size, char * read);
-  CsRead(char size, char * read, int * quals);  
+  CsRead(char size, char * read, int * quals);
 
   CsRead add(int size, std::string read);
   CsRead addQual(int size, int quals[]);

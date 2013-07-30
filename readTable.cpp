@@ -6,9 +6,8 @@
 using namespace std;
 
 readTable::readTable(char * nome){
-  
+
   this->arquivo.open(nome, ios::in);
-  
   countFileSize();
 
 }
@@ -33,18 +32,17 @@ void readTable::loadQuals(char * nome){
 
   if(qual_file.is_open()){
     for(i=0;i<size;i++){
-      
       if((i % (size/10)) == 0 ){
-	cout << ".";
-	cout.flush();
-	}
-           
+        cout << ".";
+        cout.flush();
+      }
       getline(qual_file,linha);
+
       while(linha[0] != '>')
-	getline(qual_file,linha);
+        getline(qual_file,linha);
 
       for(j=0;j<READ_TAM;j++){
-	qual_file >> quals[j];
+        qual_file >> quals[j];
       }
       read[i].addQual(READ_TAM,quals);
     }
@@ -57,7 +55,7 @@ void readTable::loadQuals(char * nome){
 long readTable::markBadReads(int min_qual){
   long i,j;
 
-  
+
   bad_reads=0;
   for(i=0;i<size;i++){
     for(j=0;j<READ_TAM;j++){
@@ -68,7 +66,7 @@ long readTable::markBadReads(int min_qual){
       }
      }
   }
- 
+
   cout << "bads: " << bad_reads << endl;
 }
 
@@ -90,7 +88,7 @@ void readTable::loadReads(){
     do{
       getline(arquivo, linha);
     }while(linha[0] != '>');
-    
+
     getline(arquivo, linha);
     read[i].add(READ_TAM,linha);
   }
@@ -98,11 +96,11 @@ void readTable::loadReads(){
 }
 
 void readTable::writeGoodReads(char * name){
-  
+
   long i;
   fstream outfile;
   outfile.open(name,ios::out);
-  
+
   for(i=0;i<size;i++){
     if(read[i].isGood()){
       outfile << ">" << i << endl;
@@ -114,7 +112,7 @@ void readTable::writeGoodReads(char * name){
 }
 
 ostream &operator<<( ostream & output, const readTable &read) {
-  
+
   int i;
   for(i=0;i<read.size;i++){
     output << ">" << i << endl;
@@ -123,11 +121,11 @@ ostream &operator<<( ostream & output, const readTable &read) {
   return output;
 }
 
-long readTable::countFileSize(){  
+long readTable::countFileSize(){
 
   string linha;
   this->size=0;
-  
+
   if(arquivo.is_open()){
     while(arquivo.good()){
       getline(arquivo, linha);
@@ -145,7 +143,8 @@ KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
   unsigned int i;
 
   for(i=0;i<size;i++)
-    novo->insert(&read[i]);
+    if(read[i].isGood())
+      novo->insert(&read[i]);
 
   return novo;
 

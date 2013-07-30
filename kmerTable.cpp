@@ -31,9 +31,7 @@ void KmerTable::insert(CsRead * read){
   unsigned int pieces = read->getSize() - kmer_size;
 
   for(i=0;i<pieces;i++)
-    //hash(read->subs(i,kmer_size));
-#pragma GCC diagnostic ignored "-Wwrite-strings"
-    hash("CAAAC");
+    hash(read->subs(i,kmer_size));
 
 }
 

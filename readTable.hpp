@@ -17,6 +17,8 @@ public:
   long numberReads();
   long markBadReads(int);
   void writeGoodReads(char *);
+  void convertPseudoBases();
+  void convertBases();
   KmerTable * generateKmerTable(unsigned int kmer_size);
   CsRead *  getRead(unsigned int read);
 
