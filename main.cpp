@@ -15,12 +15,18 @@ int main(){
   cout << reads.numberReads() << " reads" << endl;
   cout << "Loading reads: ";
   reads.loadReads();
-  cout << endl << "loading complete" << endl << "loadind quals: ";
-  //reads.loadQuals("data/example.qual");
-  //cout << endl << "loading quals complete" << endl;
-  //reads.markBadReads(1);
-  //reads.writeGoodReads("data/example.out");
+  cout << endl << "loading complete" << endl;
+  /*
+  cout << "loadind quals: ";
+  reads.loadQuals("data/example.qual");
+  cout << endl << "loading quals complete" << endl;
+  reads.markBadReads(1);
+  reads.writeGoodReads("data/example.out");
+  */
 
+  CsRead teste(6,"T00123");
+  cout << "read:" << teste << "\t";
+  cout << "pbases:" << teste.convert2Bases() << "\n";
   KmerTable * pKmerT;
   pKmerT = reads.generateKmerTable(21);
 

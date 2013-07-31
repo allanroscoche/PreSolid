@@ -25,6 +25,8 @@ public:
   char * subs(unsigned char pos, unsigned char size);
   void print(ostream &);
   int getSize();
+  CsRead convert2PseudoBases();
+  CsRead convert2Bases();
 
 private:
   char * bases;

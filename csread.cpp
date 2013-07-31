@@ -50,7 +50,7 @@ bool CsRead::isGood(){
 
 void CsRead::print(ostream & output ){
   int i;
-  
+
   for(i=0;i<size;i++)
     output << bases[i];
   output << endl;
@@ -58,7 +58,7 @@ void CsRead::print(ostream & output ){
 
 
 CsRead CsRead::add(int size, std::string read){
-  
+
   bases = new char[size];
   this->size = size;
   int i;
@@ -70,7 +70,7 @@ CsRead CsRead::add(int size, std::string read){
 
 
 CsRead CsRead::addQual(int n_size, int n_quals[]){
-  
+
   quals = new int[n_size];
   if(size != n_size)
     cout << "Erro\n";
@@ -94,6 +94,110 @@ char * CsRead::subs(unsigned char pos, unsigned char sub_size){
     subs[j++] = bases[i];
   subs[j] = 0;
   return subs;
+}
+
+CsRead CsRead::convert2PseudoBases(){
+
+  unsigned int i;
+  for(i=2;i<size;i++) {
+    switch(bases[i]){
+    case '0':
+      bases[i-2] = 'A';
+      break;
+    case '1':
+      bases[i-2] = 'C';
+      break;
+    case '2':
+      bases[i-2] = 'G';
+      break;
+    case '3':
+      bases[i-2] = 'T';
+      break;
+    }
+  }
+  bases[i-1] = bases[i-2] = 0;
+  size -= 2;
+  return *this;
+}
+CsRead CsRead::convert2Bases(){
+
+
+  switch(bases[1]){
+  case '1':
+    bases[0] = 'G';
+    break;
+  case '2':
+    bases[0] = 'C';
+    break;
+  case '3':
+    bases[0] = 'A';
+    break;
+  }
+
+  char base = bases[0];
+  char * temp = bases;
+  int i;
+  for(i=2;i<size;i++){
+    switch(bases[i]){
+    case '0':
+      *temp=base;
+      break;
+    case '1':
+      switch(base){
+      case 'A':
+        *temp = 'C';
+        break;
+      case 'C':
+        *temp = 'A';
+        break;
+      case 'G':
+        *temp = 'T';
+        break;
+      case 'T':
+        *temp = 'G';
+        break;
+      }
+      break;
+    case '2':
+      switch(base){
+      case 'A':
+        *temp = 'G';
+        break;
+      case 'C':
+        *temp = 'T';
+        break;
+      case 'G':
+        *temp = 'A';
+        break;
+      case 'T':
+        *temp = 'C';
+        break;
+      }
+      break;
+    case '3':
+      switch(base){
+      case 'A':
+        *temp = 'T';
+        break;
+      case 'C':
+        *temp = 'G';
+        break;
+      case 'G':
+        *temp = 'C';
+        break;
+      case 'T':
+        *temp = 'A';
+        break;
+      }
+      break;
+    }
+    *temp++;
+    base = bases[i-2];
+  }
+  bases[i-1]=bases[i-2] = 0;
+  size -=2;
+
+  return *this;
 }
 
 int CsRead::getSize(){
