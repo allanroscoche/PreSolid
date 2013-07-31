@@ -16,6 +16,10 @@ int main(){
   cout << "Loading reads: ";
   reads.loadReads();
   cout << endl << "loading complete" << endl;
+  cout << "Converting reads:" << endl;
+  reads.convertPseudoBases();
+  cout << "Converting Complete" << endl;
+
   /*
   cout << "loadind quals: ";
   reads.loadQuals("data/example.qual");
@@ -24,9 +28,6 @@ int main(){
   reads.writeGoodReads("data/example.out");
   */
 
-  CsRead teste(6,"T00123");
-  cout << "read:" << teste << "\t";
-  cout << "pbases:" << teste.convert2Bases() << "\n";
   KmerTable * pKmerT;
   pKmerT = reads.generateKmerTable(21);
 

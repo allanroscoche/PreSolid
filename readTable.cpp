@@ -143,8 +143,7 @@ KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
   unsigned int i;
 
   for(i=0;i<size;i++)
-    if(read[i].isGood())
-      novo->insert(&read[i]);
+    novo->insert(&read[i]);
 
   return novo;
 
@@ -153,4 +152,24 @@ KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
 CsRead * readTable::getRead(unsigned int read_id){
   CsRead * copy = new CsRead(read[read_id]);
   return copy;
+}
+
+void readTable::convertPseudoBases() {
+  unsigned long i;
+
+  for(i=0;i<size;i++){
+    if(read[i].isGood()){
+      read[i].convert2PseudoBases();
+    }
+  }
+}
+
+void readTable::convertBases(){
+  unsigned long i;
+
+  for(i=0;i<size;i++){
+    if(read[i].isGood()){
+      read[i].convert2Bases();
+    }
+  }
 }

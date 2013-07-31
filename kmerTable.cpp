@@ -1,4 +1,5 @@
 #include "kmerTable.hpp"
+#include <iomanip>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -31,7 +32,7 @@ void KmerTable::insert(CsRead * read){
   unsigned int pieces = read->getSize() - kmer_size;
 
   for(i=0;i<pieces;i++)
-    hash(read->subs(i,kmer_size));
+    std::cout << std::setw(18) << hash(read->subs(i,kmer_size))  << "\t";
 
 }
 
@@ -40,7 +41,7 @@ unsigned int KmerTable::hash(char *bases){
   unsigned int add,i,cod,temp;
   bool div4;
   add  = 0;
-  for(i=0;i<5;i++){
+  for(i=0;i<kmer_size;i++){
     switch(bases[i]){
     case 'A':
       cod = 0;
