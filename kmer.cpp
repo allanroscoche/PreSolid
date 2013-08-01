@@ -26,6 +26,12 @@ Kmer * KmerStack::pop(){
 
 void KmerStack::erase(){
 
-  
-  
+
+
+}
+
+ostream &operator<<( ostream & output, const Kmer &read) {
+
+  output << "id:"<< read.read_id << " ";
+
 }

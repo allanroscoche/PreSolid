@@ -8,6 +8,8 @@ using std::istream;
 using std::ostream;
 
 class Kmer {
+  friend ostream &operator<<( ostream &, const Kmer &);
+
 public:
   Kmer(unsigned int id, unsigned char pos){
     this->read_id = id;

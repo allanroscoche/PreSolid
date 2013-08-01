@@ -17,7 +17,7 @@ public:
   ~KmerTable();
 
 private:
-  KmerStack *  kmer;
+  Kmer *  kmers;
   unsigned long table_size;
   unsigned int kmer_size;
   unsigned int hash(char *);
