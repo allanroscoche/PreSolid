@@ -18,7 +18,7 @@ public:
   // data
   unsigned int read_id;
   unsigned char kmer_pos;
-  Kmer * next;
+  //Kmer * next;
 };
 
 class KmerStack {

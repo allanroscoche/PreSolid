@@ -13,31 +13,48 @@ KmerTable::KmerTable(unsigned int k_size){
   for(i=0;i<(kmer_size/4);i++)
     table_size *= 4;
 
+  kmers.reserve(table_size);
 
-  kmers = (Kmer *) malloc(sizeof(Kmer) * table_size);
+  //kmers = (Kmer *) malloc(sizeof(Kmer) * table_size);
   std::cout << "hashtable size: " << table_size << std::endl;
 
 
 }
 
 KmerTable::~KmerTable() {
-  int i;
-
-  free(kmers);
 
 }
 
-void KmerTable::insert(CsRead * read){
+void KmerTable::print(){
+  for( auto it = kmers.cbegin(); it != kmers.cend(); it++)
+    std::cout << "\t" << it->second << ",   ";
+  std::cout << std::endl;
+}
+
+void KmerTable::insert(CsRead * read, unsigned int id){
   unsigned int i;
   unsigned int pieces = read->getSize() - kmer_size;
   unsigned int kmer_id;
 
+  /*
+  unordered_set<string> myset = { "Allan", "Tais"};
+  for( auto it = myset.cbegin(); it != myset.cend(); it++)
+    cout << *it << ", ";
+  cout << endl;
+
+  for( unsigned i = 0; i < myset.bucket_count(); ++i){
+    cout << "bucket #" << i << " contais:";
+    for( auto local_it = myset.cbegin(i); local_it != myset.cend(i); ++local_it )
+      cout << " " << *local_it;
+    cout << endl;
+  }
+  */
+  Kmer * n_kmer;
   for(i=0;i<pieces;i++){
     kmer_id = hash(read->subs(i,kmer_size));
-    if(kmers[kmer_id] == NULL)
-      std::cout << kmers[kmer_id];
+    n_kmer = new Kmer(id,i);
+    kmers.emplace(kmer_id,*n_kmer);
   }
-
 }
 
 unsigned int KmerTable::hash(char *bases){

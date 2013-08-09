@@ -143,7 +143,7 @@ KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
   unsigned int i;
 
   for(i=0;i<size;i++)
-    novo->insert(&read[i]);
+    novo->insert(&read[i],i);
 
   return novo;
 

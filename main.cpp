@@ -7,6 +7,8 @@
 
 using std::cout;
 using std::endl;
+using std::string;
+using std::unordered_set ;
 
 int main(){
 #pragma GCC diagnostic ignored "-Wwrite-strings"
@@ -30,8 +32,12 @@ int main(){
 
   KmerTable * pKmerT;
   pKmerT = reads.generateKmerTable(21);
+  pKmerT->print();
 
   cout << endl;
+
+
+
 
   return 0;
 }
