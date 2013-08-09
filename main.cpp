@@ -32,7 +32,7 @@ int main(){
 
   KmerTable * pKmerT;
   pKmerT = reads.generateKmerTable(21);
-  pKmerT->print();
+  //pKmerT->print();
 
   cout << endl;
 

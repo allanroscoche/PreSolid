@@ -36,24 +36,15 @@ void KmerTable::insert(CsRead * read, unsigned int id){
   unsigned int pieces = read->getSize() - kmer_size;
   unsigned int kmer_id;
 
-  /*
-  unordered_set<string> myset = { "Allan", "Tais"};
-  for( auto it = myset.cbegin(); it != myset.cend(); it++)
-    cout << *it << ", ";
-  cout << endl;
 
-  for( unsigned i = 0; i < myset.bucket_count(); ++i){
-    cout << "bucket #" << i << " contais:";
-    for( auto local_it = myset.cbegin(i); local_it != myset.cend(i); ++local_it )
-      cout << " " << *local_it;
-    cout << endl;
-  }
-  */
   Kmer * n_kmer;
   for(i=0;i<pieces;i++){
     kmer_id = hash(read->subs(i,kmer_size));
     n_kmer = new Kmer(id,i);
-    kmers.emplace(kmer_id,*n_kmer);
+    if(kmers.count(kmer_id) > 0)
+      kmers.emplace(kmer_id,*n_kmer);
+    else
+      std::cout << *n_kmer << std::endl;
   }
 }
 
