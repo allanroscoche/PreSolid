@@ -27,7 +27,7 @@ KmerTable::~KmerTable() {
 
 void KmerTable::print(){
   for( auto it = kmers.cbegin(); it != kmers.cend(); it++)
-    std::cout << "\t" << it->second << ",   ";
+    std::cout << it->second.size() << "\t, ";
   std::cout << std::endl;
 }
 
@@ -35,16 +35,21 @@ void KmerTable::insert(CsRead * read, unsigned int id){
   unsigned int i;
   unsigned int pieces = read->getSize() - kmer_size;
   unsigned int kmer_id;
-
+  stack<Kmer> * kmer_st;
 
   Kmer * n_kmer;
   for(i=0;i<pieces;i++){
     kmer_id = hash(read->subs(i,kmer_size));
-    n_kmer = new Kmer(id,i);
-    if(kmers.count(kmer_id) > 0)
-      kmers.emplace(kmer_id,*n_kmer);
-    else
-      std::cout << *n_kmer << std::endl;
+    if(kmers.count(kmer_id) > 0){
+      kmer_st = new stack<Kmer>;
+      Kmer * new_kmer = new Kmer(id,i);
+      kmers.emplace(kmer_id,*kmer_st);
+      kmers[kmer_id].push(*new_kmer);
+    }
+    else{
+      Kmer * new_kmer = new Kmer(id,i);
+      kmers[kmer_id].push(*new_kmer);
+    }
   }
 }
 

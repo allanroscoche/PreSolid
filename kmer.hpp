@@ -21,16 +21,4 @@ public:
   //Kmer * next;
 };
 
-class KmerStack {
-
-public:
-  KmerStack();
-  void erase();
-  Kmer * push(unsigned int id, unsigned char pos);
-  Kmer * pop();
-
-private:
-  Kmer * head;
-};
-
 #endif
