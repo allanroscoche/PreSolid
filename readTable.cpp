@@ -142,9 +142,14 @@ KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
   KmerTable * novo = new KmerTable(kmer_size);
   unsigned int i;
 
-  for(i=0;i<size;i++)
+  for(i=0;i<size;i++){
+    if((i % (size/10)) == 0 ){
+      cout << ".";
+      cout.flush();
+      }
     novo->insert(&read[i],i);
-
+  }
+  
   return novo;
 
 }
@@ -159,6 +164,10 @@ void readTable::convertPseudoBases() {
 
   for(i=0;i<size;i++){
     if(read[i].isGood()){
+      if((i % (size/10)) == 0 ){
+	cout << ".";
+	cout.flush();
+      }
       read[i].convert2PseudoBases();
     }
   }
@@ -169,6 +178,10 @@ void readTable::convertBases(){
 
   for(i=0;i<size;i++){
     if(read[i].isGood()){
+      if((i % (size/10)) == 0 ){
+	cout << ".";
+	cout.flush();
+      }
       read[i].convert2Bases();
     }
   }

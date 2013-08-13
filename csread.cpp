@@ -81,19 +81,19 @@ CsRead CsRead::addQual(int n_size, int n_quals[]){
   }
   return *this;
 }
-char * CsRead::subs(unsigned char pos, unsigned char sub_size){
-  char * subs = (char *) malloc (sizeof(char) * size);
+void CsRead::subs(unsigned char pos, unsigned char sub_size, char * subs ){
+  //char * subs = (char *) malloc (sizeof(char) * size);
 
   int i,j=0;
   int end = pos + sub_size;
   if( end > size){
     subs[0] = 0;
-    return subs;
+    return;
   }
   for(i=pos;i<end;i++)
     subs[j++] = bases[i];
   subs[j] = 0;
-  return subs;
+
 }
 
 CsRead CsRead::convert2PseudoBases(){

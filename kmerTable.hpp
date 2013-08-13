@@ -21,7 +21,8 @@ public:
   void print();
 
 private:
-  unordered_map<unsigned int, stack<Kmer> > kmers;
+  //unordered_map<unsigned int, stack<Kmer> > kmers;
+  unsigned int * kmers;
   unsigned long table_size;
   unsigned int kmer_size;
   unsigned int hash(char *);

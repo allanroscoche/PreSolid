@@ -13,14 +13,14 @@ using std::unordered_set ;
 int main(){
 #pragma GCC diagnostic ignored "-Wwrite-strings"
   cout << "Counting reads: ";
-  readTable reads("data/treinamento2.csfasta");
+  readTable reads("data/treinamento.csfasta");
   cout << reads.numberReads() << " reads" << endl;
   cout << "Loading reads: ";
   reads.loadReads();
   cout << endl << "loading complete" << endl;
-  cout << "Converting reads:" << endl;
+  cout << "Converting reads:";
   reads.convertPseudoBases();
-  cout << "Converting Complete" << endl;
+  cout << endl << "Converting Complete" << endl;
 
   /*
   cout << "loadind quals: ";
@@ -30,11 +30,12 @@ int main(){
   reads.writeGoodReads("data/example.out");
   */
 
+  cout << "Genereting Kmers: ";
   KmerTable * pKmerT;
   pKmerT = reads.generateKmerTable(21);
-  pKmerT->print();
+  //pKmerT->print();
 
-  cout << endl;
+  cout << "Kmers Complete" << endl;
 
 
 
