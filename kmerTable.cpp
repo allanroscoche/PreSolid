@@ -35,15 +35,23 @@ void KmerTable::insert(CsRead * read, unsigned int id){
   unsigned int i;
   unsigned int pieces = read->getSize() - kmer_size;
   unsigned int kmer_id;
+  //stack<Kmer> * kmer_st;
 
   char * temp = (char * ) malloc( sizeof(char)*kmer_size);
   for(i=0;i<pieces;i++){
     read->subs(i,kmer_size,temp);
-    if(hash(temp) > table_size)
-      std::cout << "ops" ;
-    //kmers[hash(temp)]++;
-    //kmers[0]= hash(read->subs(i,kmer_size));
-    //read->subs(i,kmer_size,temp);
+    kmer_id = hash(temp);
+    kmers[kmer_id % table_size]++;
+    //if(kmers.count(kmer_id) > 0){
+      //kmer_st = new stack<Kmer>;
+      //Kmer * new_kmer = new Kmer(id,i);
+      //kmers.emplace(kmer_id,1);
+      //kmers[kmer_id].push(*new_kmer);
+      //}
+      //else{
+      //Kmer * new_kmer = new Kmer(id,i);
+      //kmers[kmer_id].push(*new_kmer);
+      //}
   }
   free(temp);
 }

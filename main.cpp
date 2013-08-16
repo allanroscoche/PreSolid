@@ -35,7 +35,7 @@ int main(){
   pKmerT = reads.generateKmerTable(21);
   //pKmerT->print();
 
-  cout << "Kmers Complete" << endl;
+  cout << endl << "Kmers Complete" << endl;
 
 
 
