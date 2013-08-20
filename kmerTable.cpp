@@ -10,7 +10,7 @@ KmerTable::KmerTable(unsigned int k_size){
   kmer_size = k_size;
   unsigned int i=0;
 
-  for(i=0;i<(kmer_size/4);i++)
+  for(i=0;i<kmer_size;i++)
     table_size *= 4;
 
   //kmers.reserve(table_size);
@@ -41,7 +41,8 @@ void KmerTable::insert(CsRead * read, unsigned int id){
   for(i=0;i<pieces;i++){
     read->subs(i,kmer_size,temp);
     kmer_id = hash(temp);
-    kmers[kmer_id % table_size]++;
+    if(kmer_id <= table_size)
+      kmers[kmer_id]++;
     //if(kmers.count(kmer_id) > 0){
       //kmer_st = new stack<Kmer>;
       //Kmer * new_kmer = new Kmer(id,i);
