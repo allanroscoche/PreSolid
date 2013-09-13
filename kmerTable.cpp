@@ -41,17 +41,8 @@ void KmerTable::insert(CsRead * read, unsigned int id){
   for(i=0;i<pieces;i++){
     read->subs(i,kmer_size,temp);
     kmer_id = hash(temp);
-    kmers[kmer_id % table_size]++;
-    //if(kmers.count(kmer_id) > 0){
-      //kmer_st = new stack<Kmer>;
-      //Kmer * new_kmer = new Kmer(id,i);
-      //kmers.emplace(kmer_id,1);
-      //kmers[kmer_id].push(*new_kmer);
-      //}
-      //else{
-      //Kmer * new_kmer = new Kmer(id,i);
-      //kmers[kmer_id].push(*new_kmer);
-      //}
+    //std::cout << std::setw(5) << "t:" << 
+    //kmers[kmer_id % table_size]++;
   }
   free(temp);
 }
