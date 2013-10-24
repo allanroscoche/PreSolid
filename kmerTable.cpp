@@ -22,9 +22,7 @@ KmerTable::KmerTable(unsigned int k_size){
 
 KmerTable::~KmerTable() {
   int i;
-
   free(kmers);
-
 }
 
 void KmerTable::insert(CsRead * read){
@@ -34,8 +32,8 @@ void KmerTable::insert(CsRead * read){
 
   for(i=0;i<pieces;i++){
     kmer_id = hash(read->subs(i,kmer_size));
-    if(kmers[kmer_id] == NULL)
-      std::cout << kmers[kmer_id];
+    if((kmers * kmer_id )== NULL)
+      std::cout << kmers;
   }
 
 }
