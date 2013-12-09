@@ -23,34 +23,36 @@ int main(int argc, char *argv[]){
   int min_qual=0;
 
 
-  if(argc < 6)
+  if(argc < 6){
     error();
+    return 1;
+  }
 
   min_qual = std::stoi(argv[1]);
 
   cout << "Counting reads: ";
-  readTable reads(argv[2]);
-  readTable reads2(argv[4]);
-  cout << reads.numberReads() + reads2.numberReads() << " reads" << endl;
+  readTable reads(argv[2],argv[4]);
+  cout << reads.numberReads() << " reads" << endl;
   cout << "Loading reads: ";
   reads.loadReads();
-  reads2.loadReads();
+
   cout << endl << "loading complete" << endl;
   cout << "Converting reads:";
   reads.convertPseudoBases();
-  reads2.convertPseudoBases();
+
   cout << endl << "Converting Complete" << endl;
 
 
   cout << "loadind quals: ";
-  reads.loadQuals(argv[3]);
-  reads2.loadQuals(argv[5]);
+  reads.loadQuals(argv[3], argv[5]);
   cout << endl << "loading quals complete" << endl;
   reads.markBadReads(min_qual);
-  reads2.markBadReads(min_qual);
 
-  reads.merge(reads2);
+
+
   reads.writeGoodReads("data/example.out");
+  reads.writeBadReads("data/bad.out");
+
 
   /*
   cout << "Genereting Kmers: ";

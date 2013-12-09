@@ -72,8 +72,8 @@ CsRead CsRead::add(int size, std::string read){
 CsRead CsRead::addQual(int n_size, int n_quals[]){
 
   quals = new int[n_size];
-  if(size != n_size)
-    cout << "Erro\n";
+  //if(size != n_size)
+  //  cout << "Erro:" << size - n_size << endl;
 
   int i;
   for(i=0;i<size;i++){

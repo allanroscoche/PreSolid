@@ -11,9 +11,12 @@ class readTable {
 
 public:
   readTable(char * filename);
+  readTable(char * filename1, char * filename2);
   ~readTable();
   void loadQuals(char * filename);
-  void load(CsRead *);
+  void loadQuals(char * filename, char * filename2);
+  void quals(bool);
+  CsRead * load(CsRead *);
   void loadReads();
   long numberReads();
   long markBadReads(int);
@@ -31,6 +34,9 @@ private:
   CsRead * reads_R3;
   long size;
   fstream arquivo;
+  fstream arquivo_R3;
+  char * nome_qual;
+  char * nome_qual_R3;
   long bad_reads;
   long countFileSize();
 };

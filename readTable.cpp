@@ -14,6 +14,16 @@ readTable::readTable(char * nome){
 
 }
 
+readTable::readTable(char * nome1, char * nome2){
+
+  this->arquivo.open(nome1, ios::in);
+  this->arquivo_R3.open(nome2, ios::in);
+  paired = true;
+  reads_R3 = NULL;
+  countFileSize();
+
+}
+
 readTable::~readTable(){
   this->arquivo.close();
 }
@@ -29,19 +39,38 @@ void readTable::merge(readTable & table){
   unsigned long i;
   paired = true;
 
-  size+=table.size;
+  //size+=table.size;
   //for(i=0;i<table.size;i++)
-  //  ;
+  //  reads_R3[i].add(READ_TAM,linha);
 
 }
-
+void readTable::loadQuals(char * nome1, char * nome2){
+  nome_qual = nome1;
+  nome_qual_R3 = nome2;
+  quals(true);
+  quals(false);
+}
 void readTable::loadQuals(char * nome){
+  nome_qual = nome;
+  quals(true);
+}
+
+void readTable::quals(bool pair){
   long i,j;
   string linha;
 
   int quals[READ_TAM];
   fstream qual_file;
-  qual_file.open(nome);
+  CsRead * reads;
+
+  if(pair){
+    qual_file.open(nome_qual);
+    reads = reads_F3;
+  }
+  else {
+    qual_file.open(nome_qual_R3);
+    reads = reads_R3;
+  }
 
   if(qual_file.is_open()){
     for(i=0;i<size;i++){
@@ -57,7 +86,7 @@ void readTable::loadQuals(char * nome){
       for(j=0;j<READ_TAM;j++){
         qual_file >> quals[j];
       }
-      reads_R3[i].addQual(READ_TAM,quals);
+      reads[i].addQual(READ_TAM,quals);
     }
   }
   else
@@ -68,28 +97,38 @@ void readTable::loadQuals(char * nome){
 long readTable::markBadReads(int min_qual){
   long i,j;
 
-
   bad_reads=0;
   for(i=0;i<size;i++){
     for(j=0;j<READ_TAM;j++){
       if(reads_F3[i].qual(j) < min_qual){
-	bad_reads++;
-	reads_F3[i].setBad();
-	break;
+        bad_reads++;
+        reads_F3[i].setBad();
+        break;
       }
-     }
+    }
+  }
+  if(paired){
+    for(i=0;i<size;i++){
+      for(j=0;j<READ_TAM;j++){
+        if(reads_R3[i].qual(j) < min_qual){
+          bad_reads++;
+          reads_R3[i].setBad();
+          break;
+        }
+      }
+    }
   }
 
   cout << "bads: " << bad_reads << endl;
 }
 
 
-void readTable::load(CsRead *){
+CsRead *  readTable::load(CsRead * reads){
   long i;
   string linha;
 
 
-  reads_F3 = new CsRead[size];
+  reads = new CsRead[size];
 
   arquivo.clear();
   arquivo.seekg(0, ios::beg);
@@ -104,14 +143,17 @@ void readTable::load(CsRead *){
     }while(linha[0] != '>');
 
     getline(arquivo, linha);
-    reads_F3[i].add(READ_TAM,linha);
+    reads[i].add(READ_TAM,linha);
   }
+
+  return reads;
 }
 
 void readTable::loadReads(){
 
-  load(reads_F3);
-
+  reads_F3 = load(reads_F3);
+  if(paired)
+    reads_R3 = load(reads_R3);
 }
 
 void readTable::writeGoodReads(char * name){
@@ -203,6 +245,17 @@ void readTable::convertPseudoBases() {
 	cout.flush();
       }
       reads_F3[i].convert2PseudoBases();
+    }
+  }
+  if(paired){
+    for(i=0;i<size;i++){
+      if(reads_R3[i].isGood()){
+        if((i % (size/10)) == 0 ){
+          cout << ".";
+          cout.flush();
+        }
+        reads_R3[i].convert2PseudoBases();
+      }
     }
   }
 }
