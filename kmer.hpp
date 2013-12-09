@@ -18,19 +18,7 @@ public:
   // data
   unsigned int read_id;
   unsigned char kmer_pos;
-  Kmer * next;
-};
-
-class KmerStack {
-
-public:
-  KmerStack();
-  void erase();
-  Kmer * push(unsigned int id, unsigned char pos);
-  Kmer * pop();
-
-private:
-  Kmer * head;
+  //Kmer * next;
 };
 
 #endif

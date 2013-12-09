@@ -5,19 +5,24 @@
 #include "csread.hpp"
 #include <iostream>
 #include <string>
-#include <unordered_set>
+#include <stack>
+#include <unordered_map>
 
 using std::istream;
 using std::ostream;
+using std::unordered_map;
+using std::stack;
 
 class KmerTable {
 public:
-  void insert(CsRead *);
+  void insert(CsRead *, unsigned int id);
   KmerTable(unsigned int kmer_size);
   ~KmerTable();
+  void print();
 
 private:
-  Kmer *  kmers;
+  //unordered_map<unsigned int, int > kmers;
+  unsigned int * kmers;
   unsigned long table_size;
   unsigned int kmer_size;
   unsigned int hash(char *);

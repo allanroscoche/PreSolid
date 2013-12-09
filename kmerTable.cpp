@@ -10,32 +10,50 @@ KmerTable::KmerTable(unsigned int k_size){
   kmer_size = k_size;
   unsigned int i=0;
 
-  for(i=0;i<(kmer_size/4);i++)
+  for(i=0;i<kmer_size;i++)
     table_size *= 4;
 
 
-  kmers = (Kmer *) malloc(sizeof(Kmer) * table_size);
+  kmers = (unsigned int  *) malloc(sizeof(unsigned int) * table_size);
   std::cout << "hashtable size: " << table_size << std::endl;
 
 
 }
 
 KmerTable::~KmerTable() {
-  int i;
+
   free(kmers);
 }
 
-void KmerTable::insert(CsRead * read){
+void KmerTable::print(){
+  unsigned long total=0;
+  unsigned long i;
+
+  for(i=0;i<table_size;i++)
+    total+=kmers[i];
+  std::cout << (total/table_size) << std::endl;
+
+}
+
+void KmerTable::insert(CsRead * read, unsigned int id){
   unsigned int i;
   unsigned int pieces = read->getSize() - kmer_size;
   unsigned int kmer_id;
+  //stack<Kmer> * kmer_st;
 
+  char * temp = (char * ) malloc( sizeof(char)*kmer_size);
   for(i=0;i<pieces;i++){
-    kmer_id = hash(read->subs(i,kmer_size));
-    if((kmers * kmer_id )== NULL)
-      std::cout << kmers;
-  }
+    read->subs(i,kmer_size,temp);
+    kmer_id = hash(temp);
+    //std::cout << std::setw(5) << "t:" << 
+    //kmers[kmer_id % table_size]++;
 
+    if(kmer_id <= table_size)
+      kmers[kmer_id]++;
+    else
+      std::cout << "error\n";
+  }
+  free(temp);
 }
 
 unsigned int KmerTable::hash(char *bases){

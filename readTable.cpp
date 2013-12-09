@@ -8,6 +8,8 @@ using namespace std;
 readTable::readTable(char * nome){
 
   this->arquivo.open(nome, ios::in);
+  paired = false;
+  reads_R3 = NULL;
   countFileSize();
 
 }
@@ -20,6 +22,17 @@ long readTable::numberReads(){
   long size;
   size = this->size;
   return size;
+}
+
+void readTable::merge(readTable & table){
+
+  unsigned long i;
+  paired = true;
+
+  size+=table.size;
+  //for(i=0;i<table.size;i++)
+  //  ;
+
 }
 
 void readTable::loadQuals(char * nome){
@@ -44,7 +57,7 @@ void readTable::loadQuals(char * nome){
       for(j=0;j<READ_TAM;j++){
         qual_file >> quals[j];
       }
-      read[i].addQual(READ_TAM,quals);
+      reads_R3[i].addQual(READ_TAM,quals);
     }
   }
   else
@@ -59,9 +72,9 @@ long readTable::markBadReads(int min_qual){
   bad_reads=0;
   for(i=0;i<size;i++){
     for(j=0;j<READ_TAM;j++){
-      if(read[i].qual(j) < min_qual){
+      if(reads_F3[i].qual(j) < min_qual){
 	bad_reads++;
-	read[i].setBad();
+	reads_F3[i].setBad();
 	break;
       }
      }
@@ -70,12 +83,13 @@ long readTable::markBadReads(int min_qual){
   cout << "bads: " << bad_reads << endl;
 }
 
-void readTable::loadReads(){
+
+void readTable::load(CsRead *){
   long i;
   string linha;
 
 
-  this->read = new CsRead[size];
+  reads_F3 = new CsRead[size];
 
   arquivo.clear();
   arquivo.seekg(0, ios::beg);
@@ -90,8 +104,13 @@ void readTable::loadReads(){
     }while(linha[0] != '>');
 
     getline(arquivo, linha);
-    read[i].add(READ_TAM,linha);
+    reads_F3[i].add(READ_TAM,linha);
   }
+}
+
+void readTable::loadReads(){
+
+  load(reads_F3);
 
 }
 
@@ -102,9 +121,24 @@ void readTable::writeGoodReads(char * name){
   outfile.open(name,ios::out);
 
   for(i=0;i<size;i++){
-    if(read[i].isGood()){
+    if(reads_F3[i].isGood()){
       outfile << ">" << i << endl;
-      read[i].print(outfile);
+      reads_F3[i].print(outfile);
+    }
+  }
+  outfile.close();
+
+}
+void readTable::writeBadReads(char * name){
+
+  long i;
+  fstream outfile;
+  outfile.open(name,ios::out);
+
+  for(i=0;i<size;i++){
+    if(!reads_F3[i].isGood()){
+      outfile << ">" << i << endl;
+      reads_F3[i].print(outfile);
     }
   }
   outfile.close();
@@ -116,7 +150,7 @@ ostream &operator<<( ostream & output, const readTable &read) {
   int i;
   for(i=0;i<read.size;i++){
     output << ">" << i << endl;
-    read.read[i].print(output);
+    read.reads_F3[i].print(output);
   }
   return output;
 }
@@ -142,15 +176,20 @@ KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
   KmerTable * novo = new KmerTable(kmer_size);
   unsigned int i;
 
-  for(i=0;i<size;i++)
-    novo->insert(&read[i]);
+  for(i=0;i<size;i++){
+    if((i % (size/10)) == 0 ){
+      cout << ".";
+      cout.flush();
+      }
+    novo->insert(&reads_F3[i],i);
+  }
 
   return novo;
 
 }
 
 CsRead * readTable::getRead(unsigned int read_id){
-  CsRead * copy = new CsRead(read[read_id]);
+  CsRead * copy = new CsRead(reads_F3[read_id]);
   return copy;
 }
 
@@ -158,8 +197,12 @@ void readTable::convertPseudoBases() {
   unsigned long i;
 
   for(i=0;i<size;i++){
-    if(read[i].isGood()){
-      read[i].convert2PseudoBases();
+    if(reads_F3[i].isGood()){
+      if((i % (size/10)) == 0 ){
+	cout << ".";
+	cout.flush();
+      }
+      reads_F3[i].convert2PseudoBases();
     }
   }
 }
@@ -168,8 +211,12 @@ void readTable::convertBases(){
   unsigned long i;
 
   for(i=0;i<size;i++){
-    if(read[i].isGood()){
-      read[i].convert2Bases();
+    if(reads_F3[i].isGood()){
+      if((i % (size/10)) == 0 ){
+	cout << ".";
+	cout.flush();
+      }
+      reads_F3[i].convert2Bases();
     }
   }
 }

@@ -13,17 +13,22 @@ public:
   readTable(char * filename);
   ~readTable();
   void loadQuals(char * filename);
+  void load(CsRead *);
   void loadReads();
   long numberReads();
   long markBadReads(int);
   void writeGoodReads(char *);
+  void writeBadReads(char *);
   void convertBases();
+  void merge(readTable & );
   void convertPseudoBases();
   KmerTable * generateKmerTable(unsigned int kmer_size);
   CsRead *  getRead(unsigned int read);
 
 private:
-  CsRead * read;
+  bool paired;
+  CsRead * reads_F3;
+  CsRead * reads_R3;
   long size;
   fstream arquivo;
   long bad_reads;

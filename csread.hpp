@@ -22,7 +22,7 @@ public:
   int qual(int);
   void setBad();
   bool isGood();
-  char * subs(unsigned char pos, unsigned char size);
+  void subs(unsigned char pos, unsigned char size, char *);
   void print(ostream &);
   int getSize();
   CsRead convert2PseudoBases();
