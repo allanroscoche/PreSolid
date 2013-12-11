@@ -109,7 +109,7 @@ int readTable::maxQual(){
       if(reads_R3[i].qual(j) > max)
         max = reads_R3[i].qual(j);
 
-  cout << "max: " << max << endl;
+  //cout << "max: " << max << endl;
   return max;
 }
 
