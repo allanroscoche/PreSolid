@@ -89,8 +89,10 @@ void readTable::quals(bool pair){
       reads[i].addQual(READ_TAM,quals);
     }
   }
+  else if(pair)
+    cout << "arquivo " << nome_qual <<" não encontrado" << endl;
   else
-    cout << "arquivo não encontrado" << endl;
+    cout << "arquivo " << nome_qual_R3 <<" não encontrado" << endl;
 
 }
 
@@ -99,7 +101,7 @@ long readTable::markBadReads(int min_qual){
 
   bad_reads=0;
   for(i=0;i<size;i++){
-    for(j=0;j<READ_TAM;j++){
+    for(j=0;j<READ_TAM-2;j++){
       if(reads_F3[i].qual(j) < min_qual){
         bad_reads++;
         reads_F3[i].setBad();
@@ -109,7 +111,7 @@ long readTable::markBadReads(int min_qual){
   }
   if(paired){
     for(i=0;i<size;i++){
-      for(j=0;j<READ_TAM;j++){
+      for(j=0;j<READ_TAM-2;j++){
         if(reads_R3[i].qual(j) < min_qual){
           bad_reads++;
           reads_R3[i].setBad();
@@ -118,7 +120,13 @@ long readTable::markBadReads(int min_qual){
       }
     }
   }
-
+  /*
+  cout << "last: ";
+    for(j=0;j<READ_TAM-2;j++)
+      cout << reads_R3[i-1].qual(j) << " ";
+  cout << endl;
+  cout << "min: " << min_qual << endl;
+  // */
   cout << "bads: " << bad_reads << endl;
 }
 
@@ -168,6 +176,14 @@ void readTable::writeGoodReads(char * name){
       reads_F3[i].print(outfile);
     }
   }
+  if(paired){
+    for(i=0;i<size;i++){
+      if(reads_R3[i].isGood()){
+        outfile << ">" << i << endl;
+        reads_R3[i].print(outfile);
+      }
+    }
+  }
   outfile.close();
 
 }
@@ -183,6 +199,15 @@ void readTable::writeBadReads(char * name){
       reads_F3[i].print(outfile);
     }
   }
+  if(paired){
+    for(i=0;i<size;i++){
+      if(!reads_F3[i].isGood()){
+        outfile << ">" << i << endl;
+        reads_F3[i].print(outfile);
+      }
+    }
+  }
+
   outfile.close();
 
 }

@@ -50,8 +50,8 @@ int main(int argc, char *argv[]){
 
 
 
-  //reads.writeGoodReads(good);
-  //reads.writeBadReads(argv[2]+"/bad.out");
+  reads.writeGoodReads("data/good.out");
+  reads.writeBadReads("data/bad.out");
 
 
   /*
