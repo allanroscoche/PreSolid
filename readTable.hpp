@@ -22,6 +22,7 @@ public:
   long markBadReads(int);
   void writeGoodReads(char *);
   void writeBadReads(char *);
+  int maxQual();
   void convertBases();
   void merge(readTable & );
   void convertPseudoBases();

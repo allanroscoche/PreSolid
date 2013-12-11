@@ -95,6 +95,24 @@ void readTable::quals(bool pair){
     cout << "arquivo " << nome_qual_R3 <<" não encontrado" << endl;
 
 }
+int readTable::maxQual(){
+
+  long i,j;
+  int max=0;
+  for(i=0;i<size;i++)
+    for(j=0;j<READ_TAM-2;j++)
+      if(reads_F3[i].qual(j) > max)
+        max = reads_F3[i].qual(j);
+  if(paired)
+  for(i=0;i<size;i++)
+    for(j=0;j<READ_TAM-2;j++)
+      if(reads_R3[i].qual(j) > max)
+        max = reads_R3[i].qual(j);
+
+  cout << "max: " << max << endl;
+  return max;
+}
+
 
 long readTable::markBadReads(int min_qual){
   long i,j;

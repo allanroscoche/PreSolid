@@ -46,6 +46,8 @@ int main(int argc, char *argv[]){
   cout << "loadind quals: ";
   reads.loadQuals(argv[4], argv[6]);
   cout << endl << "loading quals complete" << endl;
+
+  reads.maxQual();
   reads.markBadReads(min_qual);
 
 
