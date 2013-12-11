@@ -2,6 +2,7 @@
 #include <fstream>
 #include <unordered_set>
 #include <string>
+#include <string.h>
 #include "readTable.hpp"
 #include "csread.hpp"
 #include "kmer.hpp"
@@ -48,15 +49,16 @@ int main(int argc, char *argv[]){
   cout << endl << "loading quals complete" << endl;
 
   int max = reads.maxQual();
-  for(max; max>0;max--){
+  for(max; max>min_qual;max--){
     cout << "min: " << max << " ";
     reads.markBadReads(max);
   }
+  char good[50],bad[50];
+  strcpy(good,argv[2]);
+  strcpy(bad,argv[2]);
 
-
-
-  reads.writeGoodReads("data/good.out");
-  reads.writeBadReads("data/bad.out");
+  reads.writeGoodReads(strcat(good,"/good.out"));
+  reads.writeBadReads(strcat(bad,"/bad.out"));
 
 
   /*
