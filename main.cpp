@@ -47,12 +47,16 @@ int main(int argc, char *argv[]){
   cout << "loadind quals: ";
   reads.loadQuals(argv[4], argv[6]);
   cout << endl << "loading quals complete" << endl;
-
+  /*
   int max = reads.maxQual();
   for(max; max>min_qual;max--){
     cout << "min: " << max << " ";
     reads.markBadReads(max);
   }
+
+  */
+
+  reads.markBadReads(min_qual);
   char good[50],bad[50];
   strcpy(good,argv[2]);
   strcpy(bad,argv[2]);

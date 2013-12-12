@@ -188,17 +188,21 @@ void readTable::writeGoodReads(char * name){
   fstream outfile;
   outfile.open(name,ios::out);
 
-  for(i=0;i<size;i++){
-    if(reads_F3[i].isGood()){
-      outfile << ">" << i << endl;
-      reads_F3[i].print(outfile);
-    }
-  }
   if(paired){
     for(i=0;i<size;i++){
-      if(reads_R3[i].isGood()){
-        outfile << ">" << i << endl;
-        reads_R3[i].print(outfile);
+      if(reads_F3[i].isGood() && reads_R3[i].isGood() ){
+	outfile << ">" << i << endl;
+	reads_F3[i].print(outfile);
+	outfile << ">" << i << "_R3" << endl;
+	reads_R3[i].print(outfile);
+      }  
+    }  
+  }
+  else {
+    for(i=0;i<size;i++){
+      if(reads_F3[i].isGood()){
+	outfile << ">" << i << endl;
+	reads_F3[i].print(outfile);
       }
     }
   }
