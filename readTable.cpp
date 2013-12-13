@@ -182,7 +182,7 @@ void readTable::loadReads(){
     reads_R3 = load(reads_R3);
 }
 
-void readTable::writeGoodReads(char * name){
+void readTable::writeGoodReads2(char * name){
 
   long i;
   fstream outfile;
@@ -209,6 +209,31 @@ void readTable::writeGoodReads(char * name){
   outfile.close();
 
 }
+void readTable::writeGoodReads(char * name){
+
+  long i;
+  fstream outfile;
+  outfile.open(name,ios::out);
+
+  for(i=0;i<size;i++){
+    if(reads_F3[i].isGood() && reads_R3[i].isGood()){
+      outfile << ">" << i << "F3" << endl;
+      reads_F3[i].print(outfile);
+    }
+  }
+  if(paired){
+    for(i=0;i<size;i++){
+      if(reads_F3[i].isGood() && reads_R3[i].isGood()){
+        outfile << ">" << i << "R3" << endl;
+        reads_F3[i].print(outfile);
+      }
+    }
+  }
+
+  outfile.close();
+
+}
+
 void readTable::writeBadReads(char * name){
 
   long i;

@@ -21,6 +21,7 @@ public:
   long numberReads();
   long markBadReads(int);
   void writeGoodReads(char *);
+  void writeGoodReads2(char *);
   void writeBadReads(char *);
   int maxQual();
   void convertBases();
