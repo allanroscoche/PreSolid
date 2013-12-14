@@ -22,6 +22,7 @@ public:
   int qual(int);
   void setBad();
   bool isGood();
+  int firstQual(int);
   void subs(unsigned char pos, unsigned char size, char *);
   void print(ostream &);
   int getSize();
@@ -32,6 +33,7 @@ private:
   char * bases;
   int * quals;
   char size;
+  //short first;
   bool bad;
 
 };

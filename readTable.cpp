@@ -42,8 +42,29 @@ void readTable::merge(readTable & table){
   //size+=table.size;
   //for(i=0;i<table.size;i++)
   //  reads_R3[i].add(READ_TAM,linha);
+}
+
+void readTable::markMinReads(int qual, int min){
+
+  int i;
+  CsRead * reads;
+
+  reads = reads_F3;
+
+  for(i=0;i<size;i++){
+    if(reads[i].firstQual(qual) < min)
+      reads[i].setBad();
+  }
+  if(paired){
+    reads = reads_R3;
+    for(i=0;i<size;i++){
+      if(reads[i].firstQual(qual) < min)
+        reads[i].setBad();
+    }
+  }
 
 }
+
 void readTable::loadQuals(char * nome1, char * nome2){
   nome_qual = nome1;
   nome_qual_R3 = nome2;
@@ -182,7 +203,7 @@ void readTable::loadReads(){
     reads_R3 = load(reads_R3);
 }
 
-void readTable::writeGoodReads2(char * name){
+void readTable::writeGoodReads(char * name){
 
   long i;
   fstream outfile;
@@ -191,12 +212,12 @@ void readTable::writeGoodReads2(char * name){
   if(paired){
     for(i=0;i<size;i++){
       if(reads_F3[i].isGood() && reads_R3[i].isGood() ){
-	outfile << ">" << i << endl;
-	reads_F3[i].print(outfile);
-	outfile << ">" << i << "_R3" << endl;
-	reads_R3[i].print(outfile);
-      }  
-    }  
+        outfile << ">" << i << "_F3" << endl;
+        reads_F3[i].print(outfile);
+        outfile << ">" << i << "_R3" << endl;
+        reads_R3[i].print(outfile);
+      }
+    }
   }
   else {
     for(i=0;i<size;i++){
@@ -209,7 +230,7 @@ void readTable::writeGoodReads2(char * name){
   outfile.close();
 
 }
-void readTable::writeGoodReads(char * name){
+void readTable::writeGoodReads2(char * name){
 
   long i;
   fstream outfile;

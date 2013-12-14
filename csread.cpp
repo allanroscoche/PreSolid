@@ -81,6 +81,17 @@ CsRead CsRead::addQual(int n_size, int n_quals[]){
   }
   return *this;
 }
+
+int CsRead::firstQual(int qual){
+
+  int i;
+  for(i=0;i<size;i++){
+    if(quals[i] < qual)
+      return i;
+  }
+
+}
+
 void CsRead::subs(unsigned char pos, unsigned char sub_size, char * subs ){
   //char * subs = (char *) malloc (sizeof(char) * size);
 
