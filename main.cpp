@@ -57,7 +57,7 @@ int main(int argc, char *argv[]){
   */
 
   reads.markBadReads(min_qual);
-  //reads.markMinReads(min_qual, 21);
+  reads.markMinReads(min_qual, 20);
   char good[50],bad[50];
   strcpy(good,argv[2]);
   strcpy(bad,argv[2]);

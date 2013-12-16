@@ -52,15 +52,19 @@ void readTable::markMinReads(int qual, int min){
   reads = reads_F3;
 
   for(i=0;i<size;i++){
-    if(reads[i].firstQual(qual) < min)
+    if(reads[i].firstQual(qual) < min){
       reads[i].setBad();
+    }
   }
+  cout << endl;
   if(paired){
     reads = reads_R3;
     for(i=0;i<size;i++){
-      if(reads[i].firstQual(qual) < min)
+      if(reads[i].firstQual(qual) < min){
         reads[i].setBad();
+      }
     }
+    cout << endl;
   }
 
 }

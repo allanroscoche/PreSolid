@@ -89,6 +89,7 @@ int CsRead::firstQual(int qual){
     if(quals[i] < qual)
       return i;
   }
+  return size;
 
 }
 
