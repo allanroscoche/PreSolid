@@ -56,6 +56,7 @@ int main(int argc, char *argv[]){
 
   */
 
+  /*
   reads.markBadReads(min_qual);
   reads.markMinReads(min_qual, 20);
   char good[50],bad[50];
@@ -64,16 +65,16 @@ int main(int argc, char *argv[]){
 
   reads.writeGoodReads(strcat(good,"/good.out"));
   reads.writeBadReads(strcat(bad,"/bad.out"));
+  */
 
 
-  /*
   cout << "Genereting Kmers: ";
   KmerTable * pKmerT;
-  pKmerT = reads.generateKmerTable(min_qual);
-  pKmerT->print();
+  pKmerT = reads.generateKmerTable(11);
+  //pKmerT->print();
 
   cout << endl << "Kmers Complete" << endl;
-  */
+
 
 
 
