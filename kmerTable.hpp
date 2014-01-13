@@ -5,13 +5,13 @@
 #include "csread.hpp"
 #include <iostream>
 #include <string>
-#include <stack>
+#include <list>
 #include <unordered_map>
 
+using std::list;
 using std::istream;
 using std::ostream;
 using std::unordered_map;
-using std::stack;
 
 class KmerTable {
 public:
@@ -21,11 +21,13 @@ public:
   void print();
 
 private:
-  //unordered_map<unsigned int, int > kmers;
-  unsigned short * * kmers;
-  unsigned long num_tables;
+
+  unsigned char * kmers;
+  unsigned long table_size;
   unsigned int kmer_size;
-  void hash(char *, unsigned short * id);
+  bool hash(char *, unsigned char *);
+  void insertKmer(unsigned char *);
+
 };
 
 #endif
