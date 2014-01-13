@@ -70,8 +70,8 @@ int main(int argc, char *argv[]){
 
   cout << "Genereting Kmers: ";
   KmerTable * pKmerT;
-  pKmerT = reads.generateKmerTable(11);
-  //pKmerT->print();
+  pKmerT = reads.generateKmerTable(21);
+  pKmerT->print();
 
   cout << endl << "Kmers Complete" << endl;
 

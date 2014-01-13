@@ -22,10 +22,10 @@ public:
 
 private:
   //unordered_map<unsigned int, int > kmers;
-  unsigned int * kmers;
-  unsigned long table_size;
+  unsigned short * * kmers;
+  unsigned long num_tables;
   unsigned int kmer_size;
-  unsigned int hash(char *);
+  void hash(char *, unsigned short * id);
 };
 
 #endif
