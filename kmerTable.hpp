@@ -23,7 +23,7 @@ public:
 private:
 
   unsigned char * kmers;
-  unsigned long table_size;
+  unsigned long num_tables;
   unsigned int kmer_size;
   bool hash(char *, unsigned char *);
   void insertKmer(unsigned char *);

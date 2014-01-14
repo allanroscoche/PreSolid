@@ -17,7 +17,7 @@ KmerTable::KmerTable(unsigned int k_size){
   kmer_size = k_size;
   unsigned int i=0,size;
 
-  size = (kmer_size / 8) + 1;
+  num_tables = (kmer_size / 8) + 1;
 
   //kmers = (unsigned short  * *) malloc(sizeof(unsigned short *) * size);
 
@@ -43,7 +43,7 @@ void KmerTable::print(){
     std::cout << "[" << i << "]=" << (int)kmers[i] << std::endl;
     total+=kmers[i];
   }
-  std::cout << (total/table_size) << std::endl;
+  std::cout << total << std::endl;
 
 
 }
@@ -58,7 +58,7 @@ void KmerTable::insertKmer(unsigned char * key){
   //else
   //  kmers[key[0]] = (unsigned char *) malloc ( sizeof(unsigned char));
 
-  //kmers[key[0]] = key[1];
+  //kmers[kewy[0]] = key[1];
 
 }
 
@@ -107,8 +107,8 @@ bool KmerTable::hash(char *bases, unsigned char * id){
   unsigned int i,cod,temp;
   bool div4;
 
-  //for(i=0;i<num_tables;i++)
-  //  id[i]=0;
+  for(i=0;i<num_tables;i++)
+    id[i]=0;
 
   for(i=0;i<kmer_size;i++){
     //std::cout << bases[i];
