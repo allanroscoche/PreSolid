@@ -22,7 +22,7 @@ public:
 
 private:
 
-  unsigned char * kmers;
+  unsigned int * kmers;
   unsigned long num_tables;
   unsigned int kmer_size;
   bool hash(char *, unsigned char *);

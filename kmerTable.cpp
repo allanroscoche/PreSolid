@@ -15,16 +15,15 @@ KmerTable::KmerTable(unsigned int k_size){
   std::cout << "k:" << k_size << std::endl;
 
   kmer_size = k_size;
-  unsigned int i=0,size;
+  unsigned int i,size;
 
   num_tables = (kmer_size / 8) + 1;
 
-  //kmers = (unsigned short  * *) malloc(sizeof(unsigned short *) * size);
 
-  //for(i=0;i<size;i++)
-  //kmers[i] = (list<unsigned short>) malloc(sizeof(list<unsigned short>) * TABLE_SIZE);
+  kmers = (unsigned int * ) malloc(sizeof(unsigned int)*256);
+  for(i=0;i<256;i++)
+    kmers[i] = 0;
 
-  kmers = (unsigned char * ) malloc(sizeof(unsigned char)*256);
   //std::cout << "hashtable size: " << table_size << std::endl;
 
 
