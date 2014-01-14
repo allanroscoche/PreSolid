@@ -39,10 +39,11 @@ void KmerTable::print(){
   unsigned long total=0;
   unsigned long i;
 
-  for(i=0;i<256;i++)
+  for(i=0;i<256;i++){
     std::cout << "[" << i << "]=" << (int)kmers[i] << std::endl;
-  //  total+=kmers[i];
-  //td::cout << (total/table_size) << std::endl;
+    total+=kmers[i];
+  }
+  std::cout << (total/table_size) << std::endl;
 
 
 }
