@@ -2,16 +2,13 @@
 #define KMERTABLE
 #include "globals.h"
 #include "kmer.hpp"
+#include "kmerTree.hpp"
 #include "csread.hpp"
 #include <iostream>
 #include <string>
-#include <list>
-#include <unordered_map>
 
-using std::list;
 using std::istream;
 using std::ostream;
-using std::unordered_map;
 
 class KmerTable {
 public:
@@ -22,7 +19,7 @@ public:
 
 private:
 
-  unsigned int * kmers;
+  kmerTree *  kmers;
   unsigned long num_tables;
   unsigned int kmer_size;
   bool hash(char *, unsigned char *);

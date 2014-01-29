@@ -316,10 +316,12 @@ KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
   unsigned int i;
 
   for(i=0;i<size;i++){
+    /*
     if((i % (size/10)) == 0 ){
       cout << ".";
       cout.flush();
       }
+    */
     novo->insert(&reads_F3[i],i);
   }
 

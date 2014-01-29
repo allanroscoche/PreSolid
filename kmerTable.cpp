@@ -1,10 +1,11 @@
 #include "kmerTable.hpp"
+#include "kmerTree.hpp"
 #include <iomanip>
 #include <stdio.h>
 #include <stdlib.h>
 #include <bitset>
 
-#define TABLE_SIZE 65536
+#define HASH_SIZE 256
 
 using std::cout;
 using std::endl;
@@ -19,14 +20,10 @@ KmerTable::KmerTable(unsigned int k_size){
 
   num_tables = (kmer_size / 8) + 1;
 
-
-  kmers = (unsigned int * ) malloc(sizeof(unsigned int)*256);
-  for(i=0;i<256;i++)
-    kmers[i] = 0;
-
-  //std::cout << "hashtable size: " << table_size << std::endl;
-
-
+  kmers = new kmerTree(k_size);
+  //kmers = (unsigned int * ) malloc(sizeof(unsigned int)*HASH_SIZE);
+  //for(i=0;i<HASH_SIZE;i++)
+  //  kmers[i] = 0;
 }
 
 KmerTable::~KmerTable() {
@@ -38,26 +35,21 @@ void KmerTable::print(){
   unsigned long total=0;
   unsigned long i;
 
+  /*
   for(i=0;i<256;i++){
     std::cout << "[" << i << "]=" << (int)kmers[i] << std::endl;
     total+=kmers[i];
   }
   std::cout << total << std::endl;
-
-
+  // */
 }
 
 void KmerTable::insertKmer(unsigned char * key){
 
 
-  kmers[key[0]]++;
-
-  //if(kmers[key[0]] > 0)
-  //  std::cout << "!" << std::endl;
-  //else
-  //  kmers[key[0]] = (unsigned char *) malloc ( sizeof(unsigned char));
-
-  //kmers[kewy[0]] = key[1];
+  kmers->insert(key);
+  //std::cout << key << std::endl;
+  //kmers[key[0]]++;
 
 }
 
@@ -68,34 +60,14 @@ void KmerTable::insert(CsRead * read, unsigned int id){
 
 
   char * temp = (char * ) malloc( sizeof(char)*kmer_size);
-  //unsigned short * hash_id = (unsigned short * ) malloc ( sizeof(unsigned short) * num_tables);
-
-  /*
-  for(i=0;i<pieces;i++){
-    read->subs(i,kmer_size,temp);
-    hash(temp,hash_id);
-    //std::cout << std::setw(5) << "t:" << 
-    //kmers[kmer_id % table_size]++;
-
-    for(j=0;j<num_tables-1;j++)
-      kmers[j][hash_id[j]] = hash_id[j+1];
-    //std::cout << "kmer_id:" << hash_id[0] << std::endl;
-    //free(kmer_id);
-    //kmers[1][(kmer_id >> 8) %TABLE_SIZE]++;
-
-    ======= */
-  //unsigned int kmer_id;
-
-  //char * temp = (char * ) malloc( sizeof(char)*kmer_size);
   unsigned char * tkey = (unsigned char * ) malloc( sizeof(unsigned char)*kmer_size);
 
   for(i=0;i<pieces;i++){
     read->subs(i,kmer_size,temp);
     hash(temp,tkey);
     insertKmer(tkey);
-    //std::cout << std::setw(5) << "t:" << 
-    //kmers[kmer_id % table_size]++;
   }
+  kmers->print();
   free(temp);
   free(tkey);
 }
@@ -110,7 +82,6 @@ bool KmerTable::hash(char *bases, unsigned char * id){
     id[i]=0;
 
   for(i=0;i<kmer_size;i++){
-    //std::cout << bases[i];
     switch(bases[i]){
     case 'A':
       cod = 0;
