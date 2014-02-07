@@ -47,7 +47,7 @@ void KmerTable::print(){
 void KmerTable::insertKmer(unsigned char * key){
 
 
-  kmers->insert(key);
+  //kmers->insert(key);
   //std::cout << key << std::endl;
   //kmers[key[0]]++;
 
@@ -101,21 +101,6 @@ bool KmerTable::hash(char *bases, unsigned char * id){
     id[i/8] |= cod << ((i*2)%16);
 
   }
-  /*
-  std::cout << std::endl;
-  for(i=0;i<num_tables;i++)
-    std::cout << (std::bitset<16>)id[i] << ".";
-  std::cout << std::endl;
-  */
-  /*
-    key[i/4] |= cod << (2*(i%4));
-  }
-  std::cout << std::endl;
-  for(i=0;i<(kmer_size/4);i++){
-    std::cout << std::bitset<8>(key[i]);
-  }
-  std::cout << std::endl;
-  */
   return 1;
 
 }

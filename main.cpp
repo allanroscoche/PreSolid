@@ -22,7 +22,15 @@ void error(){
 
 int main(int argc, char *argv[]){
 
-  
+
+  kmerTree * tree = new kmerTree(8);
+  unsigned char read[5] = "ACGT";
+
+  tree->insert(read);
+
+  tree->print();
+
+  /*
   int min_qual=0;
 
 
@@ -56,8 +64,8 @@ int main(int argc, char *argv[]){
     reads.markBadReads(max);
   }
 
-  */
-  
+  // */
+  /*
   reads.markBadReads(min_qual);
   reads.markMinReads(min_qual, 20);
   char good[50],bad[50];
