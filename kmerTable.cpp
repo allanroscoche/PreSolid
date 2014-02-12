@@ -20,7 +20,7 @@ KmerTable::KmerTable(unsigned int k_size){
 
   num_tables = (kmer_size / 8) + 1;
 
-  kmers = new kmerTree(k_size);
+  kmers = new kmerTree(num_tables);
   //kmers = (unsigned int * ) malloc(sizeof(unsigned int)*HASH_SIZE);
   //for(i=0;i<HASH_SIZE;i++)
   //  kmers[i] = 0;
@@ -35,6 +35,8 @@ void KmerTable::print(){
   unsigned long total=0;
   unsigned long i;
 
+  kmers->print();
+
   /*
   for(i=0;i<256;i++){
     std::cout << "[" << i << "]=" << (int)kmers[i] << std::endl;
@@ -47,7 +49,7 @@ void KmerTable::print(){
 void KmerTable::insertKmer(unsigned char * key){
 
 
-  //kmers->insert(key);
+  kmers->insert(key);
   //std::cout << key << std::endl;
   //kmers[key[0]]++;
 
@@ -67,7 +69,6 @@ void KmerTable::insert(CsRead * read, unsigned int id){
     hash(temp,tkey);
     insertKmer(tkey);
   }
-  kmers->print();
   free(temp);
   free(tkey);
 }

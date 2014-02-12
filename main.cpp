@@ -23,16 +23,6 @@ void error(){
 int main(int argc, char *argv[]){
 
 
-  kmerTree * tree = new kmerTree(4);
-  unsigned char read[5] = "ACGT";
-  unsigned char read2[5] = "AGGG";
-
-  tree->insert(read);
-  tree->insert(read2);
-
-  tree->print();
-
-  /*
   int min_qual=0;
 
 
@@ -59,6 +49,7 @@ int main(int argc, char *argv[]){
   cout << "loadind quals: ";
   reads.loadQuals(argv[4], argv[6]);
   cout << endl << "loading quals complete" << endl;
+
   /*
   int max = reads.maxQual();
   for(max; max>min_qual;max--){
@@ -67,7 +58,7 @@ int main(int argc, char *argv[]){
   }
 
   // */
-  /*
+
   reads.markBadReads(min_qual);
   reads.markMinReads(min_qual, 20);
   char good[50],bad[50];
@@ -81,7 +72,7 @@ int main(int argc, char *argv[]){
   cout << "Genereting Kmers: ";
   KmerTable * pKmerT;
   pKmerT = reads.generateKmerTable(21);
-  //pKmerT->print();
+  pKmerT->print();
 
   cout << endl << "Kmers Complete" << endl;
 
