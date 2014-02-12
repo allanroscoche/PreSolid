@@ -23,10 +23,12 @@ void error(){
 int main(int argc, char *argv[]){
 
 
-  kmerTree * tree = new kmerTree(8);
+  kmerTree * tree = new kmerTree(4);
   unsigned char read[5] = "ACGT";
+  unsigned char read2[5] = "AGGG";
 
   tree->insert(read);
+  tree->insert(read2);
 
   tree->print();
 
