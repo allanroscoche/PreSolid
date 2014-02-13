@@ -18,7 +18,7 @@ KmerTable::KmerTable(unsigned int k_size){
   kmer_size = k_size;
   unsigned int i,size;
 
-  num_tables = (kmer_size / 8) + 1;
+  num_tables = (kmer_size / 4) + 1;
 
   kmers = new kmerTree(num_tables);
   //kmers = (unsigned int * ) malloc(sizeof(unsigned int)*HASH_SIZE);
