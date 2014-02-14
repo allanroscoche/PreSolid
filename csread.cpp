@@ -25,6 +25,7 @@ CsRead::CsRead( char size, char * read) {
     bases[i]=read[i];
 }
 
+
 CsRead::CsRead(char size, char * read, int * qual){
 
   bad = false;

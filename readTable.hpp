@@ -25,6 +25,7 @@ public:
   void writeGoodReads2(char *);
   void writeBadReads(char *);
   int maxQual();
+  void clear();
   void convertBases();
   void merge(readTable & );
   void convertPseudoBases();
@@ -35,12 +36,14 @@ private:
   bool paired;
   CsRead * reads_F3;
   CsRead * reads_R3;
-  long size;
+  CsRead * good_reads;
+
+  unsigned long size;
   fstream arquivo;
   fstream arquivo_R3;
   char * nome_qual;
   char * nome_qual_R3;
   long bad_reads;
-  long countFileSize();
+  unsigned long countFileSize();
 };
 

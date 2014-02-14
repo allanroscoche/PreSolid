@@ -28,6 +28,48 @@ readTable::~readTable(){
   this->arquivo.close();
 }
 
+void readTable::clear(){
+
+  unsigned long i,read_index;
+  read_index = 0;
+
+  if(paired)
+    good_reads = new CsRead[(size*2)-bad_reads];
+  else
+    good_reads = new CsRead[size-bad_reads];
+
+  std::cout << "Cleaning..." << std::endl;
+  if(paired){
+    for(i=0;i<size;i++){
+      if(reads_F3[i].isGood() && reads_R3[i].isGood() ){
+        good_reads[read_index++] = reads_F3[i];
+        good_reads[read_index++] = reads_R3[i];
+      }
+    }
+  }
+  else {
+    for(i=0;i<size;i++){
+      if(reads_F3[i].isGood()){
+        good_reads[read_index++] = reads_F3[i];
+      }
+    }
+  }
+
+  delete reads_F3;
+  delete reads_R3;
+
+  if(paired)
+    size = (size*2)-bad_reads-1;
+  else
+    size = size-bad_reads-1;
+
+  std::cout << "Good reads:" << size << endl;
+
+  std::cout << "Cleaning complete" << std::endl;
+  std::cout << std::endl;
+
+}
+
 long readTable::numberReads(){
   long size;
   size = this->size;
@@ -39,9 +81,6 @@ void readTable::merge(readTable & table){
   unsigned long i;
   paired = true;
 
-  //size+=table.size;
-  //for(i=0;i<table.size;i++)
-  //  reads_R3[i].add(READ_TAM,linha);
 }
 
 void readTable::markMinReads(int qual, int min){
@@ -134,7 +173,6 @@ int readTable::maxQual(){
       if(reads_R3[i].qual(j) > max)
         max = reads_R3[i].qual(j);
 
-  //cout << "max: " << max << endl;
   return max;
 }
 
@@ -163,13 +201,6 @@ long readTable::markBadReads(int min_qual){
       }
     }
   }
-  /*
-  cout << "last: ";
-    for(j=0;j<READ_TAM-2;j++)
-      cout << reads_R3[i-1].qual(j) << " ";
-  cout << endl;
-  cout << "min: " << min_qual << endl;
-  // */
   cout << "bads: " << bad_reads << endl;
 }
 
@@ -294,7 +325,7 @@ ostream &operator<<( ostream & output, const readTable &read) {
   return output;
 }
 
-long readTable::countFileSize(){
+unsigned long readTable::countFileSize(){
 
   string linha;
   this->size=0;
@@ -316,13 +347,7 @@ KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
   unsigned int i;
 
   for(i=0;i<size;i++){
-    /*
-    if((i % (size/10)) == 0 ){
-      cout << ".";
-      cout.flush();
-      }
-    */
-    novo->insert(&reads_F3[i],i);
+    novo->insert(&good_reads[i],i);
   }
 
   return novo;

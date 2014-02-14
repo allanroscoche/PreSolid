@@ -59,6 +59,7 @@ int main(int argc, char *argv[]){
   reads.writeGoodReads(strcat(good,"/good.out"));
   reads.writeBadReads(strcat(bad,"/bad.out"));
 
+  reads.clear();
 
   cout << "Genereting Kmers: ";
   KmerTable * pKmerT;
