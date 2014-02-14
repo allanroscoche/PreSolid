@@ -163,6 +163,13 @@ long readTable::markBadReads(int min_qual){
       }
     }
   }
+  /*
+  cout << "last: ";
+    for(j=0;j<READ_TAM-2;j++)
+      cout << reads_R3[i-1].qual(j) << " ";
+  cout << endl;
+  cout << "min: " << min_qual << endl;
+  // */
   cout << "bads: " << bad_reads << endl;
 }
 
@@ -262,7 +269,6 @@ void readTable::writeBadReads(char * name){
     if(!reads_F3[i].isGood()){
       outfile << ">" << i << endl;
       reads_F3[i].print(outfile);
-      //delete reads_F3[i];
     }
   }
   if(paired){
@@ -270,7 +276,6 @@ void readTable::writeBadReads(char * name){
       if(!reads_F3[i].isGood()){
         outfile << ">" << i << endl;
         reads_F3[i].print(outfile);
-	//delete reads_F3[i];
       }
     }
   }
@@ -311,10 +316,12 @@ KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
   unsigned int i;
 
   for(i=0;i<size;i++){
-    if((i % (size/1000)) == 0 ){
+    /*
+    if((i % (size/10)) == 0 ){
       cout << ".";
       cout.flush();
       }
+    */
     novo->insert(&reads_F3[i],i);
   }
 

@@ -64,7 +64,7 @@ kmerNode * kmerTree::rec_print(kmerNode * no){
 
   for(i=0;i<256;i++)
     if(no->next[i] != 0){
-      //tprint[no->next[i]->level] = no->next[i]->code;
+      tprint[no->next[i]->level] = no->next[i]->code;
       rec_print(no->next[i]);
       if(no->next[i]->level == num_tables-1){
         //cout << tprint << endl;
@@ -83,7 +83,7 @@ void kmerTree::print(){
   int i;
   for(i=0;i<256;i++)
     if(root->next[i] != 0){
-      //tprint[0] = root->next[i]->code;
+      tprint[0] = root->next[i]->code;
       rec_print(root->next[i]);
     }
   cout << "total kmers:" << total;
