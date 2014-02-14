@@ -67,8 +67,6 @@ kmerNode * kmerTree::rec_print(kmerNode * no){
       tprint[no->next[i]->level] = no->next[i]->code;
       rec_print(no->next[i]);
       if(no->next[i]->level == num_tables-1){
-        //cout << tprint << endl;
-        //cout << ":" << int(no->next[i]->code) << endl;
         total++;
       }
     }
