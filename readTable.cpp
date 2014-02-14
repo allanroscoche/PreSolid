@@ -41,6 +41,10 @@ void readTable::clear(){
   std::cout << "Cleaning..." << std::endl;
   if(paired){
     for(i=0;i<size;i++){
+    if((i % (size/10)) == 0 ){
+      cout << ".";
+      cout.flush();
+      }
       if(reads_F3[i].isGood() && reads_R3[i].isGood() ){
         good_reads[read_index++] = reads_F3[i];
         good_reads[read_index++] = reads_R3[i];
