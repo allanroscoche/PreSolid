@@ -49,6 +49,8 @@ void readTable::clear(){
         good_reads[read_index++] = reads_F3[i];
         good_reads[read_index++] = reads_R3[i];
       }
+      reads_F3[i].clear();
+      reads_R3[i].clear();
     }
   }
   else {
@@ -59,8 +61,10 @@ void readTable::clear(){
     }
   }
 
-  delete reads_F3;
-  delete reads_R3;
+
+
+  //delete reads_F3;
+  //delete reads_R3;
 
   if(paired)
     size = (size*2)-bad_reads-1;

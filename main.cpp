@@ -56,8 +56,8 @@ int main(int argc, char *argv[]){
   strcpy(good,argv[2]);
   strcpy(bad,argv[2]);
 
-  reads.writeGoodReads(strcat(good,"/good.out"));
-  reads.writeBadReads(strcat(bad,"/bad.out"));
+  //reads.writeGoodReads(strcat(good,"/good.out"));
+  //reads.writeBadReads(strcat(bad,"/bad.out"));
 
   reads.clear();
 

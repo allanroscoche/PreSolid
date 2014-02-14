@@ -38,6 +38,14 @@ CsRead::CsRead(char size, char * read, int * qual){
   }
 }
 
+CsRead::~CsRead(){
+
+}
+
+void CsRead::clear(){
+  delete bases;
+}
+
 int CsRead::qual(int i){
   return quals[i];
 }
