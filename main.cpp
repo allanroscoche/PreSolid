@@ -50,6 +50,7 @@ int main(int argc, char *argv[]){
   reads.loadQuals(argv[4], argv[6]);
   cout << endl << "loading quals complete" << endl;
 
+  cout << "marking reads: ";
   reads.markBadReads(min_qual);
   reads.markMinReads(min_qual, 20);
   char good[50],bad[50];

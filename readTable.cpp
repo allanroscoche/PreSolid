@@ -98,13 +98,23 @@ void readTable::markMinReads(int qual, int min){
 
   reads = reads_F3;
 
-  for(i=0;i<size;i++){
-    if(reads[i].firstQual(qual) < min){
-      reads[i].setBad();
+  for(i=0;i<size;i++)
+    if((i % (size/10)) == 0 ){
+      std::cout << ".";
+      std::cout.flush();
     }
+  
+  if(reads[i].firstQual(qual) < min){
+    reads[i].setBad();
   }
-  cout << endl;
+  
+  std::cout << endl;
   if(paired){
+    if((i % (size/10)) == 0 ){
+      std::cout << ".";
+      std::cout.flush();
+    }
+    
     reads = reads_R3;
     for(i=0;i<size;i++){
       if(reads[i].firstQual(qual) < min){
