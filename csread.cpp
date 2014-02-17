@@ -44,6 +44,8 @@ CsRead::~CsRead(){
 
 void CsRead::clear(){
   delete bases;
+  if(quals != NULL)
+    delete quals;
 }
 
 int CsRead::qual(int i){
