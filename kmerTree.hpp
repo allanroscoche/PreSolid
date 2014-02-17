@@ -6,7 +6,7 @@ struct kmerNode
 {
 
   kmerNode * next[256];
-  unsigned char code, level;
+  unsigned char code;
 
 };
 

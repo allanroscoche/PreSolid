@@ -31,7 +31,6 @@ kmerNode * kmerTree::novo_no(unsigned char key, unsigned char level){
   for(i=0;i<256;i++)
     no->next[i] = NULL;
   no->code = key;
-  no->level = level;
   return no;
 
 }
@@ -47,10 +46,14 @@ void kmerTree::insert(unsigned char * key){
        no->next[key[i]] = novo_no(key[i],i);
     no = no->next[key[i]];
   }
-  if(no->next[key[i]] == NULL)
-    no->next[key[i]] = novo_no(0,i);
+  
+  if(no->next[key[i]] == NULL){
+    no->next[key[i]] = (kmerNode *) malloc(sizeof(kmerNode));
+    no->next[key[i]]->code = 0;
+  }
   else
     no->next[key[i]]->code++;
+  
 }
 
 
@@ -62,14 +65,12 @@ kmerNode * kmerTree::rec_print(kmerNode * no){
   int i;
   kmerNode * temp;
 
-  for(i=0;i<256;i++)
+  for(i=0;i<256;i++){
     if(no->next[i] != 0){
-      tprint[no->next[i]->level] = no->next[i]->code;
       rec_print(no->next[i]);
-      if(no->next[i]->level == num_tables-1){
-        total++;
+      total++;
       }
-    }
+  }
 
   return no;
 }
@@ -81,7 +82,6 @@ void kmerTree::print(){
   int i;
   for(i=0;i<256;i++)
     if(root->next[i] != 0){
-      tprint[0] = root->next[i]->code;
       rec_print(root->next[i]);
     }
   cout << "total kmers:" << total;

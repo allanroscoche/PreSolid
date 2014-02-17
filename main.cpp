@@ -34,7 +34,9 @@ int main(int argc, char *argv[]){
   min_qual = std::stoi(argv[1]);
 
   cout << "Counting reads: ";
-  readTable reads(argv[3],argv[5]);
+  readTable reads(argv[3]);
+  //readTable reads(argv[3],argv[5]);
+
   cout << reads.numberReads() << " reads" << endl;
   cout << "Loading reads: ";
   reads.loadReads();
@@ -45,7 +47,7 @@ int main(int argc, char *argv[]){
 
   cout << endl << "Converting Complete" << endl;
 
-
+  /*
   cout << "loadind quals: ";
   reads.loadQuals(argv[4], argv[6]);
   cout << endl << "loading quals complete" << endl;
@@ -59,13 +61,13 @@ int main(int argc, char *argv[]){
 
   //reads.writeGoodReads(strcat(good,"/good.out"));
   //reads.writeBadReads(strcat(bad,"/bad.out"));
-
+  */
   reads.clear();
 
   cout << "Genereting Kmers: ";
   KmerTable * pKmerT;
   pKmerT = reads.generateKmerTable(21);
-  pKmerT->print();
+  //pKmerT->print();
 
   cout << endl << "Kmers Complete" << endl;
 
