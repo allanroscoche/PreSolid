@@ -26,30 +26,12 @@ CsRead::CsRead( char size, char * read) {
 }
 
 
-CsRead::CsRead(char size, char * read, int * qual){
-
-  bad = false;
-  bases = new char[size];
-  quals = new int[size];
-
-  for(int i=0;i<size;i++){
-    bases[i] = read[i];
-    quals[i] = qual[i];
-  }
-}
-
 CsRead::~CsRead(){
 
 }
 
 void CsRead::clear(){
   delete bases;
-  if(quals != NULL)
-    delete quals;
-}
-
-int CsRead::qual(int i){
-  return quals[i];
 }
 
 void CsRead::setBad(){
@@ -79,30 +61,6 @@ CsRead CsRead::add(int size, std::string read){
   return *this;
 }
 
-
-CsRead CsRead::addQual(int n_size, int n_quals[]){
-
-  quals = new int[n_size];
-  //if(size != n_size)
-  //  cout << "Erro:" << size - n_size << endl;
-
-  int i;
-  for(i=0;i<size;i++){
-    quals[i] = n_quals[i];
-  }
-  return *this;
-}
-
-int CsRead::firstQual(int qual){
-
-  int i;
-  for(i=0;i<size;i++){
-    if(quals[i] < qual)
-      return i;
-  }
-  return size;
-
-}
 
 void CsRead::subs(unsigned char pos, unsigned char sub_size, char * subs ){
   //char * subs = (char *) malloc (sizeof(char) * size);

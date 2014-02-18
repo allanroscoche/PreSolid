@@ -46,14 +46,14 @@ void kmerTree::insert(unsigned char * key){
        no->next[key[i]] = novo_no(key[i],i);
     no = no->next[key[i]];
   }
-  
+
   if(no->next[key[i]] == NULL){
-    no->next[key[i]] = (kmerNode *) malloc(sizeof(kmerNode));
-    no->next[key[i]]->code = 0;
+    //no->next[key[i]] = (kmerNode *) malloc(sizeof(kmerNode));
+    //no->next[key[i]]->code = 0;
   }
   else
     no->next[key[i]]->code++;
-  
+
 }
 
 

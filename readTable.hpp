@@ -13,18 +13,13 @@ public:
   readTable(char * filename);
   readTable(char * filename1, char * filename2);
   ~readTable();
-  void loadQuals(char * filename);
-  void loadQuals(char * filename, char * filename2);
+  void loadQuals(char * filename, int );
+  void loadQuals(char * filename, char * filename2, int);
   void quals(bool);
   CsRead * load(CsRead *);
   void loadReads();
   long numberReads();
-  long markBadReads(int);
-  void markMinReads(int, int);
   void writeGoodReads(char *);
-  void writeGoodReads2(char *);
-  void writeBadReads(char *);
-  int maxQual();
   void clear();
   void convertBases();
   void merge(readTable & );
@@ -34,9 +29,7 @@ public:
 
 private:
   bool paired;
-  CsRead * reads_F3;
-  CsRead * reads_R3;
-  CsRead * good_reads;
+  CsRead * reads;
 
   unsigned long size;
   fstream arquivo;

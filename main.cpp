@@ -25,7 +25,6 @@ int main(int argc, char *argv[]){
 
   int min_qual=0;
 
-
   if(argc < 6){
     error();
     return 1;
@@ -34,39 +33,42 @@ int main(int argc, char *argv[]){
   min_qual = std::stoi(argv[1]);
 
   cout << "Counting reads: ";
-  readTable reads(argv[3]);
-  //readTable reads(argv[3],argv[5]);
+  //readTable reads(argv[3]);
+  readTable reads(argv[3],argv[5]);
+  cout << endl;
 
   cout << reads.numberReads() << " reads" << endl;
   cout << "Loading reads: ";
   reads.loadReads();
+  cout << endl;
 
+
+
+  /*
   cout << endl << "loading complete" << endl;
   cout << "Converting reads:";
   reads.convertPseudoBases();
 
   cout << endl << "Converting Complete" << endl;
 
-  /*
   cout << "loadind quals: ";
-  reads.loadQuals(argv[4], argv[6]);
-  cout << endl << "loading quals complete" << endl;
+  reads.loadQuals(argv[4], min_qual);
+  //reads.loadQuals(argv[4], argv[6], min_qual);
 
   cout << "marking reads: ";
-  reads.markBadReads(min_qual);
-  reads.markMinReads(min_qual, 20);
+  //reads.markBadReads(min_qual);
+  //reads.markMinReads(min_qual, 20);
   char good[50],bad[50];
   strcpy(good,argv[2]);
   strcpy(bad,argv[2]);
 
-  //reads.writeGoodReads(strcat(good,"/good.out"));
-  //reads.writeBadReads(strcat(bad,"/bad.out"));
-  */
+  reads.writeGoodReads(strcat(good,"/good.out"));
+  // */
   reads.clear();
 
   cout << "Genereting Kmers: ";
   KmerTable * pKmerT;
-  pKmerT = reads.generateKmerTable(21);
+  //pKmerT = reads.generateKmerTable(21);
   //pKmerT->print();
 
   cout << endl << "Kmers Complete" << endl;
