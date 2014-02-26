@@ -43,20 +43,19 @@ int main(int argc, char *argv[]){
   cout << endl;
 
 
+  cout << "loadind quals: ";
+  //reads.loadQuals(argv[4], min_qual);
+  reads.loadQuals(argv[4], argv[6], min_qual);
 
-  /*
   cout << endl << "loading complete" << endl;
   cout << "Converting reads:";
   reads.convertPseudoBases();
 
   cout << endl << "Converting Complete" << endl;
 
-  cout << "loadind quals: ";
-  reads.loadQuals(argv[4], min_qual);
-  //reads.loadQuals(argv[4], argv[6], min_qual);
 
   cout << "marking reads: ";
-  //reads.markBadReads(min_qual);
+  reads.markBadReads(min_qual);
   //reads.markMinReads(min_qual, 20);
   char good[50],bad[50];
   strcpy(good,argv[2]);

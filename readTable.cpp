@@ -23,7 +23,7 @@ readTable::readTable(char * nome1, char * nome2){
 }
 
 readTable::~readTable(){
-  this->arquivo.close();
+
 }
 
 void readTable::clear(){
@@ -54,11 +54,83 @@ void readTable::loadQuals(char * nome, int min_qual){
   nome_qual = nome;
 }
 
+void readTable::markBadReads(int min){
+
+  long i,j;
+  string linha;
+
+  fstream qual_file,qual_file_R3;
+
+  bool bad;
+  int quals[READ_TAM];
+
+  if(!paired){
+
+    arquivo.clear();
+    arquivo.seekg(0, ios::beg);
+
+    for(i=0;i<size;i++){
+      if((i % (size/10)) == 0 ){
+        cout << ".";
+        cout.flush();
+      }
+      do{
+        getline(arquivo, linha);
+      }while(linha[0] != '>');
+
+
+      for(j=0;j<READ_TAM;j++){
+        qual_file >> quals[j];
+      }
+      for(j=0;j<READ_TAM;j++){
+        if(quals[j] <= 0 )
+           reads[i].setBad();
+      }
+
+
+      getline(arquivo, linha);
+
+    }
+  }
+  else {
+
+    arquivo.open(nome_qual, ios::in);
+    arquivo_R3.open(nome_qual_R3, ios::in);
+
+    arquivo.clear();
+    arquivo_R3.clear();
+    arquivo.seekg(0, ios::beg);
+    arquivo_R3.seekg(0, ios::beg);
+
+    for(i=0;i<size;i++){
+      if((i % (size/10)) == 0 ){
+        cout << ".";
+        cout.flush();
+      }
+      if(i%2){
+        do{
+          getline(arquivo, linha);
+        }while(linha[0] != '>');
+        getline(arquivo, linha);
+      }
+      else {
+        do{
+          getline(arquivo_R3, linha);
+        }while(linha[0] != '>');
+        getline(arquivo_R3, linha);
+      }
+
+      reads[i].add(READ_TAM,linha);
+    }
+  }
 
 
 
+}
 
-void readTable::quals(bool pair){
+
+
+void readTable::quals(){
   long i,j;
   string linha;
 
@@ -90,10 +162,8 @@ void readTable::quals(bool pair){
 
     }
   }
-  else if(pair)
-    cout << "arquivo " << nome_qual <<" não encontrado" << endl;
-  else
-    cout << "arquivo " << nome_qual_R3 <<" não encontrado" << endl;
+
+  cout << "arquivo " << nome_qual <<" não encontrado" << endl;
 
 }
 
@@ -121,6 +191,7 @@ CsRead *  readTable::load(CsRead * reads){
       getline(arquivo, linha);
       reads[i].add(READ_TAM,linha);
     }
+    arquivo.close();
   }
   else {
 
@@ -149,6 +220,8 @@ CsRead *  readTable::load(CsRead * reads){
 
       reads[i].add(READ_TAM,linha);
     }
+    arquivo.close();
+    arquivo_R3.close();
   }
 
   return reads;

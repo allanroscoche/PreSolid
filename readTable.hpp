@@ -15,11 +15,12 @@ public:
   ~readTable();
   void loadQuals(char * filename, int );
   void loadQuals(char * filename, char * filename2, int);
-  void quals(bool);
+  void quals();
   CsRead * load(CsRead *);
   void loadReads();
   long numberReads();
   void writeGoodReads(char *);
+  void markBadReads(int min);
   void clear();
   void convertBases();
   void merge(readTable & );
