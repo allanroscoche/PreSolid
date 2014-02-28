@@ -60,6 +60,7 @@ int main(int argc, char *argv[]){
   char good[50],bad[50];
   strcpy(good,argv[2]);
   strcpy(bad,argv[2]);
+  cout << endl;
 
   reads.writeGoodReads(strcat(good,"/good.out"));
   // */
