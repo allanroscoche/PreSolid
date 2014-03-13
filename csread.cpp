@@ -37,6 +37,9 @@ void CsRead::clear(){
 void CsRead::setBad(){
   bad = true;
 }
+void CsRead::setGood(){
+  bad = false;
+}
 bool CsRead::isGood(){
   return !bad;
 }

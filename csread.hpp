@@ -20,6 +20,7 @@ public:
   void clear();
   CsRead add(int size, std::string read);
   void setBad();
+  void setGood();
   bool isGood();
   void subs(unsigned char pos, unsigned char size, char *);
   void print(ostream &);

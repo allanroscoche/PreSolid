@@ -176,7 +176,7 @@ void readTable::loadQuals(char * nome, int min_qual){
 
 void readTable::markBadReads(int min){
 
-  long i,j;
+  long i,j,bad_reads=0;
   string linha;
 
   fstream qual_file,qual_file_R3;
@@ -207,7 +207,6 @@ void readTable::markBadReads(int min){
            reads[i].setBad();
       }
 
-
       getline(arquivo, linha);
 
     }
@@ -231,18 +230,32 @@ void readTable::markBadReads(int min){
         do{
           getline(arquivo, linha);
         }while(linha[0] != '>');
-        getline(arquivo, linha);
+
+        for(j=0;j<READ_TAM;j++)
+          arquivo >> quals[j];
       }
       else {
         do{
           getline(arquivo_R3, linha);
         }while(linha[0] != '>');
-        getline(arquivo_R3, linha);
+
+        for(j=0;j<READ_TAM;j++)
+          arquivo_R3 >> quals[j];
+      }
+      bad = false;
+      for(j=0;j<READ_TAM;j++){
+        if(quals[j] <= 0)
+          bad = true;
+      }
+      if(bad){
+        reads[i].setBad();
+        bad_reads++;
       }
 
-      reads[i].add(READ_TAM,linha);
+      //reads[i].add(READ_TAM,linha);
     }
   }
+  cout << bad_reads << " bad reads." << endl;
 }
 
 
@@ -276,6 +289,8 @@ void readTable::quals(){
       }
       if(bad)
         reads[i].setBad();
+      else
+        reads[i].setGood();
 
     }
   }
@@ -291,8 +306,13 @@ void readTable::writeGoodReads(char * name){
 
   if(paired){
     for(i=0;i<size;i++){
-        outfile << ">" << i << "_F3" << endl;
+      if(reads[i].isGood()){
+        if((i%2)==0)
+          outfile << ">" << i/2 << "_F3" << endl;
+        else
+          outfile << ">" << i/2 << "_R3" << endl;
         reads[i].print(outfile);
+      }
     }
   }
   else {

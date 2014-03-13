@@ -62,7 +62,7 @@ int main(int argc, char *argv[]){
   strcpy(bad,argv[2]);
   cout << endl;
 
-  reads.writeGoodReads(strcat(good,"/good.out"));
+  reads.writeGoodReads("good.out");
   // */
   reads.clear();
 
