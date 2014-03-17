@@ -203,7 +203,7 @@ void readTable::markBadReads(int min){
         qual_file >> quals[j];
       }
       for(j=0;j<READ_TAM;j++){
-        if(quals[j] <= 0 )
+        if(quals[j] <= min )
            reads[i].setBad();
       }
 
@@ -244,7 +244,7 @@ void readTable::markBadReads(int min){
       }
       bad = false;
       for(j=0;j<READ_TAM;j++){
-        if(quals[j] <= 0)
+        if(quals[j] <= min)
           bad = true;
       }
       if(bad){

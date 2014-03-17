@@ -54,6 +54,7 @@ int main(int argc, char *argv[]){
   cout << endl << "Converting Complete" << endl;
 
 
+  cout << "Min qual: " << min_qual << endl;
   cout << "marking reads: ";
   reads.markBadReads(min_qual);
   //reads.markMinReads(min_qual, 20);
