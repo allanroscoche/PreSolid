@@ -349,7 +349,11 @@ KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
       std::cout << ".";
       std::cout.flush();
     }
-    //novo->insert(&good_reads[i],i);
+    for(i=0;i<size;i++){
+      if(reads[i].isGood()){
+	novo->insert(&reads[i],i);
+      }
+    }
   }
 
   return novo;
