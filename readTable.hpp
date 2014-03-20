@@ -15,22 +15,22 @@ public:
   ~readTable();
   void loadQuals(char * filename, int );
   void loadQuals(char * filename, char * filename2, int);
-  void quals();
-  CsRead * load(CsRead *);
   void loadReads();
   long numberReads();
   void writeGoodReads(char *);
-  void markBadReads(int min);
+  void markBadReads();
   void clear();
   void convertBases();
   void merge(readTable & );
   void convertPseudoBases();
   KmerTable * generateKmerTable(unsigned int kmer_size);
+  KmerTable * generateKmerTableWithQuals(unsigned int kmer_size);
   CsRead *  getRead(unsigned int read);
 
 private:
   bool paired;
   CsRead * reads;
+  int min_qual;
 
   unsigned long size;
   fstream arquivo;
@@ -39,5 +39,7 @@ private:
   char * nome_qual_R3;
   long bad_reads;
   unsigned long countFileSize();
+  void quals();
+  CsRead * load(CsRead *);
 };
 

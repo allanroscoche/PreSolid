@@ -44,6 +44,42 @@ void KmerTable::insertKmer(unsigned char * key){
 
 }
 
+int KmerTable::min(int quals[],unsigned int begin, unsigned int size){
+
+  unsigned int i,end;
+
+  int min = 10000;
+  end = begin+size;
+
+  for(i=begin;i<end;i++)
+    if(quals[i] < min)
+      min = quals[i];
+
+  return min;
+}
+
+void KmerTable::insert(CsRead * read, unsigned int id, int quals[], int min_qual ){
+  unsigned int i,j;
+  unsigned int pieces = read->getSize() - kmer_size;
+  unsigned int * kmer_id;
+
+
+  char * temp = (char * ) malloc( sizeof(char)*kmer_size);
+  unsigned char * tkey = (unsigned char * ) malloc( sizeof(unsigned char)*kmer_size);
+
+  for(i=0;i<pieces;i++){
+    read->subs(i,kmer_size,temp);
+    if( min(quals,i,kmer_size) > min_qual) {
+      hash(temp,tkey);
+      insertKmer(tkey);
+    }
+  }
+  free(temp);
+  free(tkey);
+
+}
+
+
 void KmerTable::insert(CsRead * read, unsigned int id){
   unsigned int i,j;
   unsigned int pieces = read->getSize() - kmer_size;

@@ -166,15 +166,17 @@ void readTable::merge(readTable & table){
 
 }
 
-void readTable::loadQuals(char * nome1, char * nome2, int min_qual){
+void readTable::loadQuals(char * nome1, char * nome2, int min){
   nome_qual = nome1;
   nome_qual_R3 = nome2;
+  min_qual = min;
 }
-void readTable::loadQuals(char * nome, int min_qual){
+void readTable::loadQuals(char * nome, int min){
   nome_qual = nome;
+  min_qual = min;
 }
 
-void readTable::markBadReads(int min){
+void readTable::markBadReads(){
 
   long i,j,bad_reads=0;
   string linha;
@@ -203,7 +205,7 @@ void readTable::markBadReads(int min){
         qual_file >> quals[j];
       }
       for(j=0;j<READ_TAM;j++){
-        if(quals[j] <= min )
+        if(quals[j] <= min_qual )
            reads[i].setBad();
       }
 
@@ -244,7 +246,7 @@ void readTable::markBadReads(int min){
       }
       bad = false;
       for(j=0;j<READ_TAM;j++){
-        if(quals[j] <= min)
+        if(quals[j] <= min_qual)
           bad = true;
       }
       if(bad){
@@ -338,6 +340,13 @@ ostream &operator<<( ostream & output, const readTable &read) {
 }
 
 
+
+CsRead * readTable::getRead(unsigned int read_id){
+  CsRead * copy = new CsRead(reads[read_id]);
+  return copy;
+}
+
+
 KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
 
   KmerTable * novo = new KmerTable(kmer_size);
@@ -360,7 +369,80 @@ KmerTable * readTable::generateKmerTable(unsigned int kmer_size){
 
 }
 
-CsRead * readTable::getRead(unsigned int read_id){
-  CsRead * copy = new CsRead(reads[read_id]);
-  return copy;
+KmerTable * readTable::generateKmerTableWithQuals(unsigned int kmer_size){
+
+  KmerTable * novo = new KmerTable(kmer_size);
+
+  long i,j,bad_reads=0;
+  string linha;
+
+  fstream qual_file,qual_file_R3;
+
+  bool bad;
+  int quals[READ_TAM];
+
+  if(!paired){
+    
+    arquivo.clear();
+    arquivo.seekg(0, ios::beg);
+    
+    for(i=0;i<size;i++){
+      if((i % (size/10)) == 0 ){
+        cout << ".";
+        cout.flush();
+      }
+      do{
+        getline(arquivo, linha);
+      }while(linha[0] != '>');
+
+
+      for(j=0;j<READ_TAM;j++){
+        qual_file >> quals[j];
+      }
+      for(j=0;j<READ_TAM;j++){
+        if(quals[j] <= min_qual )
+           reads[i].setBad();
+      }
+
+      getline(arquivo, linha);
+
+    }
+  }
+  else {
+
+    arquivo.open(nome_qual, ios::in);
+    arquivo_R3.open(nome_qual_R3, ios::in);
+
+    arquivo.clear();
+    arquivo_R3.clear();
+    arquivo.seekg(0, ios::beg);
+    arquivo_R3.seekg(0, ios::beg);
+
+    for(i=0;i<size;i++){
+      if((i % (size/10)) == 0 ){
+        cout << ".";
+        cout.flush();
+      }
+      if(i%2){
+        do{
+          getline(arquivo, linha);
+        }while(linha[0] != '>');
+
+        for(j=0;j<READ_TAM;j++)
+          arquivo >> quals[j];
+      }
+      else {
+        do{
+          getline(arquivo_R3, linha);
+        }while(linha[0] != '>');
+
+        for(j=0;j<READ_TAM;j++)
+          arquivo_R3 >> quals[j];
+      }
+      novo->insert(&reads[i],i,quals,min_qual);
+    }
+  }
+
+  return novo;
+
 }

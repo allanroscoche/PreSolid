@@ -56,8 +56,8 @@ int main(int argc, char *argv[]){
 
   cout << "Min qual: " << min_qual << endl;
   cout << "marking reads: ";
-  reads.markBadReads(min_qual);
-  //reads.markMinReads(min_qual, 20);
+  reads.markBadReads();
+
   char good[50],bad[50];
   strcpy(good,argv[2]);
   strcpy(bad,argv[2]);
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]){
 
   cout << "Genereting Kmers: ";
   KmerTable * pKmerT;
-  //pKmerT = reads.generateKmerTable(21);
+  pKmerT = reads.generateKmerTable(21);
   //pKmerT->print();
 
   cout << endl << "Kmers Complete" << endl;

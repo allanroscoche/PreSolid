@@ -13,6 +13,7 @@ using std::ostream;
 class KmerTable {
 public:
   void insert(CsRead *, unsigned int id);
+  void insert(CsRead *, unsigned int id, int [], int);
   KmerTable(unsigned int kmer_size);
   ~KmerTable();
   void print();
@@ -24,6 +25,7 @@ private:
   unsigned int kmer_size;
   bool hash(char *, unsigned char *);
   void insertKmer(unsigned char *);
+  int min(int [], unsigned int, unsigned int);
 
 };
 
