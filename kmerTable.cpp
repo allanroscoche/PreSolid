@@ -37,13 +37,10 @@ void KmerTable::print(){
 
 }
 
-void KmerTable::insertKmer(unsigned char * key){
+void KmerTable::writeRoadmap(){
 
-
-  kmers->insert(key);
 
 }
-
 int KmerTable::min(int quals[],unsigned int begin, unsigned int size){
 
   unsigned int i,end;
@@ -57,6 +54,13 @@ int KmerTable::min(int quals[],unsigned int begin, unsigned int size){
 
   return min;
 }
+
+void KmerTable::insertKmer(unsigned char * key){
+
+  kmers->insert(key);
+
+}
+
 
 void KmerTable::insert(CsRead * read, unsigned int id, int quals[], int min_qual ){
   unsigned int i,j;

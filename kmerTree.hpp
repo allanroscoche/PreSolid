@@ -1,7 +1,6 @@
 #ifndef KMERTREE
 #define KMERTREE
 
-
 struct kmerNode
 {
 

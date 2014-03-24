@@ -382,10 +382,9 @@ KmerTable * readTable::generateKmerTableWithQuals(unsigned int kmer_size){
   int quals[READ_TAM];
 
   if(!paired){
-    
     arquivo.clear();
     arquivo.seekg(0, ios::beg);
-    
+
     for(i=0;i<size;i++){
       if((i % (size/10)) == 0 ){
         cout << ".";

@@ -17,10 +17,11 @@ public:
   KmerTable(unsigned int kmer_size);
   ~KmerTable();
   void print();
+  void writeRoadmap();
 
 private:
 
-  kmerTree *  kmers;
+  kmerTree * kmers;
   unsigned long num_tables;
   unsigned int kmer_size;
   bool hash(char *, unsigned char *);
